@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: KannannB/AFOC-34-
+  repo: bkannanfo/AFOC-34-
   branch: main
 
 locale: fr
