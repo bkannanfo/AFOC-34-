@@ -62,6 +62,9 @@ const isProd = import.meta.env.PROD;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="google-site-verification" content="kWfxRhSUun1ZiaVAdAVCdkLYpzkV0M1YiVIRfR1uTX8" />
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
     <meta name="keywords" content={siteData.seo.keywords} />
@@ -70,6 +73,13 @@ const isProd = import.meta.env.PROD;
     <link
       rel="preload"
       href="/fonts/source-serif-4-latin-500-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/source-serif-4-latin-400-italic.woff2"
       as="font"
       type="font/woff2"
       crossorigin

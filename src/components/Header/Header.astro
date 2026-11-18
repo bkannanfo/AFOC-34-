@@ -1,7 +1,8 @@
 ---
 import siteData from '../../data/site.json';
 import { trackHref } from '../../data/tracking.js';
-import logo from '../../../public/img/logo.jpg';
+import { Image } from 'astro:assets';
+import logo from '../../assets/logo.jpg';
 const { navLinks } = siteData.header;
 const currentPath = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
 ---
@@ -9,11 +10,20 @@ const currentPath = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '')
 <header class="mast">
   <div class="site-wrap mast-inner">
     <a class="brand" href="/">
-      <img src={logo.src} width="80" height="40" alt="" class="brand-logo" />
+      <Image
+      src={logo}
+      width={80}
+      height={40}
+      densities={[1, 2]}
+      format="webp"
+      loading="eager"
+      alt=""
+      class="brand-logo"
+    />
       <span class="brand-label"><b>AFOC 34</b>Hérault</span>
       <span class="visually-hidden">, accueil</span>
     </a>
-    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-principal" hidden>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-principal">
       Menu
     </button>
     <nav class="nav" id="menu-principal" aria-label="Navigation principale">
@@ -40,8 +50,6 @@ const currentPath = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '')
   const toggle = header?.querySelector('.menu-toggle');
   const menu = header?.querySelector('#menu-principal');
   if (header && toggle && menu) {
-    toggle.hidden = false;
-    header.setAttribute('data-js', '');
     const setOpen = (open) => {
       toggle.setAttribute('aria-expanded', String(open));
       menu.classList.toggle('open', open);
@@ -138,6 +146,7 @@ const currentPath = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '')
     text-decoration: none;
   }
   .menu-toggle {
+    display: none;
     border: 1px solid var(--color-border-strong);
     background: var(--color-white);
     color: var(--color-teal);
@@ -147,9 +156,6 @@ const currentPath = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '')
   }
   .menu-toggle:hover {
     background: var(--color-teal-tint);
-  }
-  .menu-toggle[hidden] {
-    display: none;
   }
   @media (max-width: 720px) {
     .mast-inner {
@@ -163,8 +169,11 @@ const currentPath = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '')
       gap: 4px 18px;
       padding-top: 12px;
     }
-    /* Menu replié seulement quand le script est actif */
-    .mast[data-js] .nav {
+    /* Menu replié seulement quand JavaScript est actif (classe posée dans le head) */
+    :global(html.js) .menu-toggle {
+      display: inline-block;
+    }
+    :global(html.js) .nav {
       display: none;
       flex-direction: column;
       align-items: stretch;
@@ -173,21 +182,16 @@ const currentPath = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '')
       margin-top: 12px;
       padding-top: 4px;
     }
-    .mast[data-js] .nav.open {
+    :global(html.js) .nav.open {
       display: flex;
     }
-    .mast[data-js] .nav a {
+    :global(html.js) .nav a {
       padding: 12px 0;
       border-bottom: 1px solid var(--color-line);
     }
-    .mast[data-js] .nav .nav-cta {
+    :global(html.js) .nav .nav-cta {
       margin-top: 12px;
       text-align: center;
-    }
-  }
-  @media (min-width: 721px) {
-    .menu-toggle {
-      display: none;
     }
   }
 </style>
