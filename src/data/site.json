@@ -9,12 +9,11 @@
     "logo": "AFOC34",
     "logoLink": "/",
     "navLinks": [
-      { "name": "Accueil", "url": "/" },
-      { "name": "Nos missions", "url": "/missions" },
-      { "name": "Permanences", "url": "/permanences" },
-      { "name": "Adhésion", "url": "/adhesion" },
-      { "name": "À propos", "url": "/about" },
-      { "name": "Contact", "url": "/contact" }
+      { "name": "Missions", "url": "/missions" },
+      { "name": "Permanences", "url": "/#permanences" },
+      { "name": "L'association", "url": "/about" },
+      { "name": "Adhérer", "url": "/adhesion" },
+      { "name": "Contact", "url": "/contact", "cta": true }
     ]
   },
   "hero": {
@@ -50,6 +49,12 @@
         "city": "Montpellier",
         "address": "Maison des Syndicats, 474 Allée Henri II de Montmorency",
         "schedule": "Lundi et mercredi de 9h à 12h et de 14h à 17h mardi et jeudi de 14h à 17h",
+        "addressLines": ["Maison des Syndicats", "474 Allée Henri II de Montmorency", "34000 Montpellier"],
+        "hours": [
+          { "days": "Lundi et mercredi", "time": "9h à 12h, 14h à 17h" },
+          { "days": "Mardi et jeudi", "time": "14h à 17h" }
+        ],
+        "note": "Tramway ligne 1, arrêt Léon Blum. Parking à proximité.",
         "lat": 43.6015,
         "lng": 3.8965
       },
@@ -57,6 +62,8 @@
         "city": "Béziers",
         "address": "Bourse du Travail, 57 Boulevard de la Liberté",
         "schedule": "Consultez-nous au 06 80 94 18 13 pour les jours de passage",
+        "addressLines": ["Bourse du Travail", "57 Boulevard de la Liberté"],
+        "note": "Les jours de passage changent. Pour les connaître, appelez le",
         "lat": 43.3442,
         "lng": 3.214
       },
@@ -64,6 +71,8 @@
         "city": "Sète",
         "address": "Maison des Syndicats, Rue Jean Moulin",
         "schedule": "Consultez-nous au 06 80 94 18 13 pour les jours de passage",
+        "addressLines": ["Maison des Syndicats", "Rue Jean Moulin"],
+        "note": "Les jours de passage changent. Pour les connaître, appelez le",
         "lat": 43.4033,
         "lng": 3.697
       }
@@ -102,6 +111,8 @@
       "address": "Maison des Syndicats, 474 Allée Henri II de Montmorency, 34000 Montpellier",
       "phone": "06 80 94 18 13",
       "email": "afoc34@gmail.com",
+      "phoneDays": "du lundi au vendredi",
+      "phoneHours": "de 9h à 12h30 et de 13h30 à 17h",
       "access": "Tramway Lignes 1 - Arrêt Léon Blum - Parking à proximité"
     }
   },
@@ -110,9 +121,7 @@
     "legalLinks": [
       { "name": "Mentions légales", "url": "/mentions-legales" },
       { "name": "Protection des données", "url": "/politique-confidentialite" },
-      { "name": "Cookies", "url": "/politique-cookies" },
-      { "name": "Adhérer", "url": "/adhesion" },
-      { "name": "Plan du site", "url": "/sitemap-index.xml" }
+      { "name": "Cookies", "url": "/politique-cookies" }
     ]
   },
   "legal": {

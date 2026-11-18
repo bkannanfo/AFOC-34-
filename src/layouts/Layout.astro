@@ -1,16 +1,22 @@
 ---
+import UtilityBar from '../components/Header/UtilityBar.astro';
 import Header from '../components/Header/Header.astro';
 import Footer from '../components/Footer/Footer.astro';
 import siteData from '../data/site.json';
 import '../styles/global.css';
-const { title, description, image, noindex } = Astro.props;
-const pageTitle = title ? `${title} | ${siteData.header.logo}` : siteData.header.logo;
+const { title, description, image, noindex, exactTitle = false } = Astro.props;
+const suffix = siteData.header.logo;
+const pageTitle = exactTitle ? title : title ? `${title} | ${suffix}` : suffix;
 const pageDescription = description || siteData.seo.defaultDescription;
 const siteOrigin = Astro.site?.href ?? 'https://afoc34.fr/';
 const pageImage = new URL(image || siteData.seo.ogImage, siteOrigin).href;
 // build.format: 'file' makes Astro.url end in `.html` — normalise for canonical / og:url.
 const cleanPath = Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '/');
 const pageUrl = new URL(cleanPath || '/', siteOrigin).href;
+
+const { details } = siteData.contact;
+const montpellier = siteData.permanences.locations[0];
+const toE164 = (phone) => '+33' + phone.replace(/\s+/g, '').replace(/^0/, '');
 const orgJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'NGO',
@@ -18,17 +24,35 @@ const orgJsonLd = {
   alternateName: "Association Force Ouvrière Consommateurs de l'Hérault",
   url: 'https://afoc34.fr',
   logo: 'https://afoc34.fr' + siteData.seo.ogImage,
-  telephone: siteData.contact.details.phone,
-  email: siteData.contact.details.email,
+  telephone: toE164(details.phone),
+  email: details.email,
   address: {
     '@type': 'PostalAddress',
-    streetAddress: siteData.contact.details.address,
+    streetAddress: 'Maison des Syndicats, 474 Allée Henri II de Montmorency',
+    postalCode: '34000',
     addressLocality: 'Montpellier',
     addressRegion: 'Hérault',
     addressCountry: 'FR',
   },
+  location: {
+    '@type': 'Place',
+    name: `Permanence de ${montpellier.city}`,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Maison des Syndicats, 474 Allée Henri II de Montmorency',
+      postalCode: '34000',
+      addressLocality: 'Montpellier',
+      addressCountry: 'FR',
+    },
+    openingHoursSpecification: [
+      { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Wednesday'], opens: '09:00', closes: '12:00' },
+      { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Wednesday'], opens: '14:00', closes: '17:00' },
+      { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Tuesday', 'Thursday'], opens: '14:00', closes: '17:00' },
+    ],
+  },
   areaServed: ['Montpellier', 'Béziers', 'Sète'],
 };
+const isProd = import.meta.env.PROD;
 ---
 
 <!doctype html>
@@ -56,16 +80,46 @@ const orgJsonLd = {
     <meta name="twitter:description" content={pageDescription} />
     <meta name="twitter:image" content={pageImage} />
     <script type="application/ld+json" set:html={JSON.stringify(orgJsonLd)} />
-    <script
-      defer
-      src="https://umami-five-zeta.vercel.app/script.js"
-      data-website-id="93e202bb-546c-4ddf-a029-cbe380d2e5da"></script>
+    {
+      isProd && (
+        <script
+          is:inline
+          defer
+          src="https://umami-five-zeta.vercel.app/script.js"
+          data-website-id="93e202bb-546c-4ddf-a029-cbe380d2e5da"
+        />
+      )
+    }
   </head>
   <body class="flex flex-col min-h-screen">
+    <a class="skip-link" href="#contenu">Aller au contenu principal</a>
+    <UtilityBar />
     <Header />
-    <main class="flex-1">
+    <main id="contenu" class="flex-1" tabindex="-1">
       <slot />
     </main>
     <Footer />
   </body>
 </html>
+
+<style is:global>
+  .skip-link {
+    position: fixed;
+    z-index: 200;
+    top: 10px;
+    left: 10px;
+    transform: translateY(-200%);
+    padding: 11px 16px;
+    background: var(--color-white);
+    color: var(--color-ink);
+    font: 700 15px/1.4 var(--font-text);
+    text-decoration: none;
+    box-shadow: 0 8px 24px color-mix(in srgb, var(--color-ink) 15%, transparent);
+  }
+  .skip-link:focus {
+    transform: translateY(0);
+  }
+  #contenu:focus {
+    outline: none;
+  }
+</style>

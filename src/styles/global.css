@@ -18,6 +18,37 @@
   --font-serif: 'Georgia', serif;
 }
 
+/* Palette et typographie de la refonte (maquette accueil).
+   `static` : variables toujours émises, utilisées aussi en CSS scopé. */
+@theme static {
+  --color-ink: #18383d;
+  --color-ink-soft: #34545a;
+  --color-muted: #46595c;
+  --color-paper: #faf9f5;
+  --color-line: #d5dfdc;
+  --color-teal: #1b5162;
+  --color-teal-deep: #164653;
+  --color-coral: #a33a3d;
+  --color-pale: #e7efeb;
+  --color-sand: #f1ede4;
+  --color-mist: #dde8e4;
+  --color-border-strong: #9cb0b2;
+  --color-teal-tint: #e8f0ef;
+  --color-surface: #fafaf6;
+  --color-utility: #ecefea;
+  --color-icon-bg: #dbe7e2;
+  --color-band: #dfe9e4;
+  --color-band-line: #c9d8d1;
+  --color-sand-line: #e5e0d4;
+  --color-link-line: #8fa5a3;
+  --color-on-teal: #dcebe7;
+  --color-coral-light: #f1b8a5;
+  --color-white: #ffffff;
+
+  --font-display: Georgia, 'Times New Roman', serif;
+  --font-text: 'Avenir Next', Avenir, 'Segoe UI', sans-serif;
+}
+
 /* Styles globaux de base */
 body {
   font-family: var(--font-sans);
@@ -54,4 +85,36 @@ html {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* Conteneur commun de la refonte (barre, header, accueil, footer) */
+.site-wrap {
+  width: min(1220px, calc(100% - 72px));
+  margin-inline: auto;
+}
+@media (max-width: 900px) {
+  .site-wrap {
+    width: calc(100% - 52px);
+  }
+}
+@media (max-width: 720px) {
+  .site-wrap {
+    width: calc(100% - 40px);
+  }
+}
+
+/* Focus clavier visible partout */
+:where(a, button, summary, [tabindex]):focus-visible {
+  outline: 3px solid var(--color-coral);
+  outline-offset: 3px;
+}
+
+/* Texte réservé aux lecteurs d'ecran */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }

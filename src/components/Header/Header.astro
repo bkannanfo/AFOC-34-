@@ -1,195 +1,115 @@
 ---
 import siteData from '../../data/site.json';
+import { trackHref } from '../../data/tracking.js';
 import logo from '../../../public/img/logo.jpg';
+const { navLinks } = siteData.header;
 ---
 
-<header class="header">
-  <a href={siteData?.header?.logoLink || '/'} class="header-logo">
-    <img
-      src={logo.src}
-      width="80"
-      height="40"
-      alt={siteData?.header?.logo || 'AFOC 34'}
-      class="logo-img"
-    />
-  </a>
-
-  <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
-
-  <nav class="nav" id="nav">
-    <ul class="nav-list">
+<header class="mast">
+  <div class="site-wrap mast-inner">
+    <a class="brand" href="/">
+      <img src={logo.src} width="80" height="40" alt="" class="brand-logo" />
+      <span class="brand-label"><b>AFOC 34</b>Hérault</span>
+      <span class="visually-hidden">, accueil</span>
+    </a>
+    <nav class="nav" aria-label="Navigation principale">
       {
-        siteData?.header?.navLinks?.map((link) => (
-          <li>
-            <a href={link.url} class="nav-link">
-              {link.name}
-            </a>
-          </li>
+        navLinks.map((link) => (
+          <a
+            href={link.url}
+            class:list={[link.cta && 'nav-cta']}
+            {...trackHref(link.url, 'header')}
+          >
+            {link.name}
+            {link.cta && <span aria-hidden="true"> →</span>}
+          </a>
         ))
       }
-    </ul>
-  </nav>
+    </nav>
+  </div>
 </header>
 
-<script>
-  const burger = document.getElementById('burger');
-  const nav = document.getElementById('nav');
-
-  if (burger && nav) {
-    burger.addEventListener('click', () => {
-      const isOpen = nav.classList.toggle('nav-open');
-      burger.classList.toggle('burger-open');
-      burger.setAttribute('aria-expanded', String(isOpen));
-      burger.setAttribute('aria-label', isOpen ? 'Fermer le menu' : 'Ouvrir le menu');
-    });
-  }
-
-  document.querySelectorAll('.nav-link').forEach((link) => {
-    link.addEventListener('click', () => {
-      if (!nav || !burger) return;
-      nav.classList.remove('nav-open');
-      burger.classList.remove('burger-open');
-      burger.setAttribute('aria-expanded', 'false');
-      burger.setAttribute('aria-label', 'Ouvrir le menu');
-    });
-  });
-</script>
-
 <style>
-  .header {
+  .mast {
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-line);
+    font-family: var(--font-text);
+  }
+  .mast-inner {
+    min-height: 82px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem 2rem;
-    background: #ffffff;
-    border-bottom: 1px solid #e8ecf0;
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    gap: 32px;
   }
-
-  .header-logo {
+  .brand {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 15px;
     text-decoration: none;
-    transition: opacity 0.2s;
+    flex-shrink: 0;
+    color: var(--color-ink);
   }
-  .header-logo:hover {
-    opacity: 0.85;
-  }
-
-  .logo-img {
+  .brand-logo {
+    display: block;
+    width: 80px;
     height: 40px;
-    width: auto;
   }
-
-  .logo-text {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--color-bleu);
+  .brand-label {
+    border-left: 1px solid var(--color-line);
+    padding-left: 15px;
+    font-size: 12px;
+    line-height: 1.3;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
   }
-
-  .nav-list {
+  .brand-label b {
+    display: block;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    margin-bottom: 3px;
+  }
+  .nav {
     display: flex;
     align-items: center;
-    gap: 0.25rem;
-    list-style: none;
-    margin: 0;
-    padding: 0;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 10px clamp(14px, 2vw, 26px);
   }
-
-  .nav-link {
-    display: block;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
+  .nav a {
+    font-size: 15px;
     font-weight: 600;
-    color: var(--color-text);
+    color: var(--color-ink-soft);
     text-decoration: none;
-    border-radius: 6px;
-    transition:
-      background 0.15s,
-      color 0.15s;
+    padding: 6px 0;
   }
-  .nav-link:hover {
-    background: rgba(27, 81, 98, 0.08);
-    color: var(--color-bleu);
+  .nav a:hover {
+    color: var(--color-teal);
+    text-decoration: underline;
+    text-underline-offset: 4px;
   }
-
-  /* Burger */
-  .burger {
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    gap: 5px;
-    width: 36px;
-    height: 36px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 4px;
-    border-radius: 6px;
-    transition: background 0.15s;
+  .nav .nav-cta {
+    border: 1px solid var(--color-border-strong);
+    padding: 10px 15px;
+    background: var(--color-white);
+    color: var(--color-teal);
   }
-  .burger:hover {
-    background: rgba(27, 81, 98, 0.08);
+  .nav .nav-cta:hover {
+    background: var(--color-teal-tint);
+    border-color: var(--color-teal);
+    text-decoration: none;
   }
-
-  .burger span {
-    display: block;
-    height: 2px;
-    background: var(--color-bleu);
-    border-radius: 2px;
-    transition:
-      transform 0.25s ease,
-      opacity 0.25s ease;
-  }
-
-  .burger-open span:nth-child(1) {
-    transform: translateY(7px) rotate(45deg);
-  }
-  .burger-open span:nth-child(2) {
-    opacity: 0;
-  }
-  .burger-open span:nth-child(3) {
-    transform: translateY(-7px) rotate(-45deg);
-  }
-
-  /* Mobile */
-  @media (max-width: 768px) {
-    .burger {
-      display: flex;
+  @media (max-width: 720px) {
+    .mast-inner {
+      flex-wrap: wrap;
+      gap: 0;
+      padding: 14px 0;
     }
-
     .nav {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      background: #ffffff;
-      border-bottom: 1px solid #e8ecf0;
-      box-shadow: 0 8px 24px rgba(27, 81, 98, 0.1);
-    }
-
-    .nav-open {
-      display: block;
-    }
-
-    .nav-list {
-      flex-direction: column;
-      align-items: stretch;
-      padding: 0.75rem;
-      gap: 0.25rem;
-    }
-
-    .nav-link {
-      padding: 0.75rem 1rem;
-      font-size: 1rem;
+      width: 100%;
+      justify-content: flex-start;
+      gap: 4px 18px;
+      padding-top: 12px;
     }
   }
 </style>

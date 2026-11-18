@@ -1,0 +1,50 @@
+---
+import siteData from '../../data/site.json';
+import { track, telHref } from '../../data/tracking.js';
+const { phone, phoneDays, phoneHours } = siteData.contact.details;
+---
+
+<div class="utility">
+  <div class="site-wrap utility-inner">
+    <span class="utility-hours">Par téléphone, {phoneDays}, {phoneHours}</span>
+    <a class="utility-phone" href={telHref(phone)} {...track('telephone', 'barre')}>
+      <span class="visually-hidden">Appeler le </span>{phone}
+    </a>
+  </div>
+</div>
+
+<style>
+  .utility {
+    background: var(--color-utility);
+    color: var(--color-ink-soft);
+    font: 13px/1.4 var(--font-text);
+    border-bottom: 1px solid var(--color-line);
+  }
+  .utility-inner {
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .utility-phone {
+    flex-shrink: 0;
+    font-weight: 700;
+    color: var(--color-teal);
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-link-line);
+    padding-bottom: 1px;
+  }
+  .utility-phone:hover {
+    color: var(--color-coral);
+    border-color: var(--color-coral);
+  }
+  @media (max-width: 560px) {
+    .utility-inner {
+      padding: 6px 0;
+    }
+    .utility-hours {
+      font-size: 12px;
+    }
+  }
+</style>

@@ -1,168 +1,81 @@
 ---
 import siteData from '../../data/site.json';
-const { contact } = siteData;
-const mapUrl =
-  'https://www.google.com/maps/search/?api=1&query=' +
-  encodeURIComponent(contact.details.address);
+import logo from '../../../public/img/logo.jpg';
+const year = new Date().getFullYear();
+const copyright = siteData.footer.text.replace(/© \d{4}/, `© ${year}`);
 ---
 
 <footer class="site-footer">
-  <div class="footer-inner">
-    <div class="footer-col">
-      <p class="footer-brand">AFOC 34</p>
-      <p class="footer-desc">
-        Association agréée de défense des consommateurs et des locataires, présente à Montpellier,
-        Béziers et Sète depuis 1975.
-      </p>
+  <div class="site-wrap footer-inner">
+    <div class="footbrand">
+      <img src={logo.src} width="64" height="32" alt="Logo AFOC" />
+      <span>AFOC 34 · Association Force Ouvrière Consommateurs de l'Hérault</span>
     </div>
-
-    <div class="footer-col">
-      <p class="footer-heading">Nous contacter</p>
-      <p class="footer-info">
-        📍 <a href={mapUrl} target="_blank" rel="noopener noreferrer">{contact.details.address}</a>
-      </p>
-      <p class="footer-info">
-        📞 <a href={`tel:${contact.details.phone.replace(/\s+/g, '')}`}>{contact.details.phone}</a>
-      </p>
-      <p class="footer-info">
-        ✉️ <a href={`mailto:${contact.details.email}`}>{contact.details.email}</a>
-      </p>
-    </div>
-
-    <div class="footer-col">
-      <p class="footer-heading">Informations</p>
-      <ul class="footer-links">
-        {
-          siteData.footer.legalLinks.map((link) => (
-            <li>
-              <a href={link.url}>{link.name}</a>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
+    <nav class="footlinks" aria-label="Liens de pied de page">
+      {siteData.footer.legalLinks.map((link) => <a href={link.url}>{link.name}</a>)}
+    </nav>
   </div>
-
-  <div class="footer-bottom">
-    <p>{siteData.footer.text}</p>
-    <p class="footer-credit">Développé par Kannann - <a href="https://k4ydigital.fr" class="footer-credit-brand" target="_blank" rel="noopener">K4Y DIGITAL</a></p>
+  <div class="site-wrap footcredit">
+    <span>{copyright}</span>
+    <span>Développé par Kannann - <a href="https://k4ydigital.fr/">K4Y DIGITAL</a></span>
   </div>
 </footer>
 
 <style>
   .site-footer {
-    background: var(--color-bleu);
-    color: rgba(255, 255, 255, 0.85);
-    padding: 3.5rem 1.5rem 0;
+    padding: 30px 0 28px;
+    background: var(--color-paper);
+    border-top: 1px solid var(--color-line);
+    font-family: var(--font-text);
   }
   .footer-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1.4fr 1fr 1fr;
-    gap: 2.5rem;
-    padding-bottom: 2.5rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
-  }
-  .footer-brand {
-    font-family: var(--font-serif);
-    font-size: 1.3rem;
-    font-weight: 800;
-    color: #ffffff;
-    margin: 0 0 0.75rem;
-  }
-  .footer-desc {
-    font-size: 0.88rem;
-    line-height: 1.7;
-    color: rgba(255, 255, 255, 0.7);
-    margin: 0;
-    max-width: 32ch;
-  }
-  .footer-heading {
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.92);
-    margin: 0 0 1rem;
-  }
-  .footer-info {
-    font-size: 0.88rem;
-    line-height: 1.8;
-    color: rgba(255, 255, 255, 0.75);
-    margin: 0 0 0.35rem;
-  }
-  .footer-info a {
-    color: inherit;
-    text-decoration: underline;
-    text-decoration-color: rgba(255, 255, 255, 0.3);
-    text-underline-offset: 3px;
-    transition:
-      color 0.15s,
-      text-decoration-color 0.15s;
-  }
-  .footer-info a:hover {
-    color: #ffffff;
-    text-decoration-color: var(--color-rouge);
-  }
-  .footer-links {
-    list-style: none;
-    margin: 0;
-    padding: 0;
     display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-  }
-  .footer-links a {
-    font-size: 0.88rem;
-    color: rgba(255, 255, 255, 0.75);
-    text-decoration: underline;
-    text-decoration-color: rgba(255, 255, 255, 0.3);
-    text-underline-offset: 3px;
-    transition:
-      color 0.15s,
-      text-decoration-color 0.15s;
-  }
-  .footer-links a:hover {
-    color: #ffffff;
-    text-decoration-color: var(--color-rouge);
-  }
-  .footer-bottom {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 1.5rem 0;
-    display: flex;
-    flex-wrap: wrap;
+    align-items: center;
     justify-content: space-between;
-    gap: 0.5rem;
-    font-size: 0.78rem;
-    color: rgba(255, 255, 255, 0.55);
+    gap: 20px;
+    flex-wrap: wrap;
   }
-  .footer-bottom p {
-    margin: 0;
+  .footbrand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--color-muted);
+    font-size: 14px;
+    line-height: 1.5;
   }
-  .footer-credit {
-    font-size: 0.78rem;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.65);
+  .footbrand img {
+    flex: 0 0 auto;
+    display: block;
   }
-  .footer-credit-brand {
-    color: rgba(255, 255, 255, 0.85);
-    font-weight: 600;
+  .footlinks {
+    display: flex;
+    gap: 8px 22px;
+    flex-wrap: wrap;
+  }
+  .footlinks a {
+    font-size: 14px;
+    color: var(--color-muted);
     text-decoration: none;
+    padding: 4px 0;
   }
-  .footer-credit-brand:hover {
+  .footlinks a:hover {
+    color: var(--color-teal);
     text-decoration: underline;
+    text-underline-offset: 3px;
   }
-
-  @media (max-width: 768px) {
-    .footer-inner {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-    .footer-bottom {
-      flex-direction: column;
-      text-align: center;
-    }
+  .footcredit {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px 24px;
+    flex-wrap: wrap;
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid var(--color-line);
+    font-size: 13px;
+    color: var(--color-muted);
+  }
+  .footcredit a {
+    color: inherit;
+    font-weight: 700;
   }
 </style>
