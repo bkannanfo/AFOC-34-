@@ -121,7 +121,8 @@
     "legalLinks": [
       { "name": "Mentions légales", "url": "/mentions-legales" },
       { "name": "Protection des données", "url": "/politique-confidentialite" },
-      { "name": "Cookies", "url": "/politique-cookies" }
+      { "name": "Cookies", "url": "/politique-cookies" },
+      { "name": "Plan du site", "url": "/plan-du-site" }
     ]
   },
   "legal": {
@@ -135,6 +136,10 @@
         {
           "sectionTitle": "Responsable de publication",
           "text": "Thierry PRUNIER, Président de l'AFOC de l'Hérault."
+        },
+        {
+          "sectionTitle": "Contact",
+          "text": "Téléphone : 06 80 94 18 13. Courriel : afoc34@gmail.com. Courrier : AFOC de l'Hérault, Maison des Syndicats, 474 Allée Henri II de Montmorency, 34000 Montpellier."
         },
         {
           "sectionTitle": "Hébergement",
@@ -204,8 +209,9 @@
         {
           "sectionTitle": "Sous-traitants et hébergement",
           "text": [
-            "Le site est hébergé par Netlify, Inc., qui assure également la réception technique des données transmises via les formulaires du site en qualité de prestataire technique.",
-            "L'utilisation de certains prestataires peut entraîner un traitement de données en dehors de l'Union européenne. Les transferts internationaux sont encadrés par les mécanismes prévus par la réglementation applicable et par les engagements contractuels des prestataires concernés."
+            "Le site est hébergé par Netlify, Inc. (États-Unis), qui assure également la réception technique des données transmises via les formulaires du site en qualité de prestataire technique.",
+            "La mesure d'audience Umami est hébergée par Vercel, Inc. (États-Unis).",
+            "L'utilisation de ces prestataires entraîne un traitement de données en dehors de l'Union européenne. Les transferts internationaux sont encadrés par les mécanismes prévus par la réglementation applicable et par les engagements contractuels des prestataires concernés."
           ]
         },
         {
@@ -226,6 +232,7 @@
           "text": [
             "Le site utilise Umami afin de mesurer sa fréquentation et d'améliorer son contenu et son fonctionnement.",
             "Umami est utilisé sans dépôt de cookie. Selon sa documentation officielle, cette solution est conçue pour respecter la vie privée et anonymiser les données de mesure d'audience.",
+            "L'outil est hébergé par Vercel, Inc., aux États-Unis. Si votre navigateur envoie le signal « Do Not Track » (ne pas me suivre), aucune mesure d'audience n'est effectuée lors de votre visite.",
             "Les données de mesure d'audience peuvent notamment comprendre :"
           ],
           "list": [
@@ -247,7 +254,7 @@
         {
           "sectionTitle": "Évolution du site",
           "text": "Si de nouveaux outils nécessitant l'utilisation de cookies ou de traceurs soumis au consentement sont ajoutés au site, la présente politique sera mise à jour et les mesures nécessaires seront mises en place conformément à la réglementation applicable.",
-          "after": "Dernière mise à jour : 17/08/2026"
+          "after": "Dernière mise à jour : 18/11/2026"
         }
       ]
     }
