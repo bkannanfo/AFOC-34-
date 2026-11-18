@@ -7,8 +7,9 @@
   class="form"
 >
   <input type="hidden" name="form-name" value="contact" />
-  <p class="hidden">
-    <label>Ne pas remplir : <input name="bot-field" /></label>
+  <!-- Piège anti-robot : masqué pour tous (attribut hidden), ignoré des lecteurs d'écran et du clavier -->
+  <p hidden aria-hidden="true">
+    <label>Ne pas remplir : <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
   </p>
 
   <p class="form-help">Les champs marqués « obligatoire » doivent être remplis.</p>
