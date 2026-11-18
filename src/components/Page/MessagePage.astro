@@ -1,0 +1,68 @@
+---
+// Page courte centrée (confirmation d'envoi, page introuvable).
+const { eyebrow, title, mark } = Astro.props;
+---
+
+<section class="message" aria-labelledby="message-title">
+  {mark && <div class="message-mark" aria-hidden="true">{mark}</div>}
+  <div class="site-wrap message-inner">
+    <p class="eyebrow">{eyebrow}</p>
+    <h1 id="message-title">{title}</h1>
+    <div class="message-text"><slot /></div>
+    <div class="message-actions"><slot name="actions" /></div>
+  </div>
+</section>
+
+<style>
+  .message {
+    position: relative;
+    overflow: hidden;
+    background: var(--color-mist);
+    padding: 96px 0;
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+  }
+  .message-mark {
+    position: absolute;
+    right: -0.02em;
+    bottom: -0.2em;
+    font: 700 clamp(200px, 30vw, 400px) / 1 var(--font-display);
+    letter-spacing: -0.08em;
+    color: color-mix(in srgb, var(--color-teal) 5%, transparent);
+    pointer-events: none;
+    user-select: none;
+  }
+  .message-inner {
+    position: relative;
+    max-width: 720px;
+  }
+  .eyebrow {
+    margin: 0;
+  }
+  h1 {
+    font: 500 clamp(36px, 4.6vw, 56px) / 1.06 var(--font-display);
+    letter-spacing: -0.04em;
+    margin: 18px 0 16px;
+  }
+  .message-text {
+    font-size: 18px;
+    line-height: 1.7;
+    color: var(--color-ink-soft);
+    margin-bottom: 28px;
+  }
+  .message-text :global(p) {
+    margin: 0;
+  }
+  .message-actions {
+    display: flex;
+    align-items: center;
+    gap: 18px 26px;
+    flex-wrap: wrap;
+  }
+  @media (max-width: 720px) {
+    .message {
+      padding: 60px 0;
+    }
+  }
+</style>

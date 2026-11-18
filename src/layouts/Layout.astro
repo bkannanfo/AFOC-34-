@@ -4,6 +4,7 @@ import Header from '../components/Header/Header.astro';
 import Footer from '../components/Footer/Footer.astro';
 import siteData from '../data/site.json';
 import '../styles/global.css';
+import '../styles/refonte.css';
 const { title, description, image, noindex, exactTitle = false } = Astro.props;
 const suffix = siteData.header.logo;
 const pageTitle = exactTitle ? title : title ? `${title} | ${suffix}` : suffix;
@@ -95,7 +96,7 @@ const isProd = import.meta.env.PROD;
     <a class="skip-link" href="#contenu">Aller au contenu principal</a>
     <UtilityBar />
     <Header />
-    <main id="contenu" class="flex-1" tabindex="-1">
+    <main id="contenu" class="flex-1 refonte" tabindex="-1">
       <slot />
     </main>
     <Footer />

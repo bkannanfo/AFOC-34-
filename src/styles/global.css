@@ -4,18 +4,19 @@
 @import 'tailwindcss';
 
 /* Définition du thème personnalisé */
+/* Anciens noms conservés, alignés sur la palette de la refonte */
 @theme {
-  --color-primary: #1d4ed8;
-  --color-secondary: #2563eb;
-  --color-accent: #10b981;
-  --color-background: #f9fafb;
-  --color-text: #333333;
+  --color-primary: #1b5162;
+  --color-secondary: #164653;
+  --color-accent: #1b5162;
+  --color-background: #faf9f5;
+  --color-text: #18383d;
   --color-bleu: #1b5162;
-  --color-rouge: #f03648;
+  --color-rouge: #a33a3d;
 
-  /* Polices personnalisées */
-  --font-sans: 'Helvetica', 'Arial', sans-serif;
-  --font-serif: 'Georgia', serif;
+  /* Polices système, identiques à l'accueil */
+  --font-sans: 'Avenir Next', Avenir, 'Segoe UI', sans-serif;
+  --font-serif: Georgia, 'Times New Roman', serif;
 }
 
 /* Palette et typographie de la refonte (maquette accueil).
@@ -65,6 +66,8 @@ h4,
 h5,
 h6 {
   font-family: var(--font-serif);
+  font-weight: 500;
+  letter-spacing: -0.02em;
 }
 
 * {
@@ -72,8 +75,8 @@ h6 {
 }
 
 html {
-  font-size: 18px;
-  line-height: 1.6;
+  font-size: 16px;
+  line-height: 1.65;
 }
 
 @media (prefers-reduced-motion: reduce) {

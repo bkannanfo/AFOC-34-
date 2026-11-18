@@ -1,26 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import MessagePage from '../components/Page/MessagePage.astro';
 ---
 
 <Layout title="Merci pour votre adhésion" noindex>
-  <section class="min-h-screen flex items-center justify-center bg-gray-50">
-    <div class="text-center max-w-lg mx-auto px-6 py-16">
-      <div class="text-6xl mb-6">✅</div>
-      <h1 class="text-3xl font-bold text-[var(--color-bleu)] font-serif mb-4">
-        Merci pour votre adhésion !
-      </h1>
-      <p class="text-gray-600 leading-relaxed mb-8">
-        Votre demande a bien été reçue. Un membre de l'AFOC 34 prendra contact avec vous
-        prochainement pour finaliser votre adhésion.
-      </p>
-
-      <a
-        href="/"
-        style="background: var(--color-bleu)"
-        class="inline-block text-white font-bold px-8 py-3 rounded-xl transition-all"
-      >
-        Retour a l'accueil
-      </a>
-    </div>
-  </section>
+  <MessagePage eyebrow="Demande reçue" title="Merci pour votre adhésion.">
+    <p>
+      Votre demande a bien été reçue. Un membre de l'AFOC 34 prendra contact avec vous prochainement
+      pour finaliser votre adhésion.
+    </p>
+    <a slot="actions" class="button" href="/">Retour à l'accueil</a>
+  </MessagePage>
 </Layout>
