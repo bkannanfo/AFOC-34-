@@ -6,8 +6,8 @@ const articleSchema = z.object({
   date: z.coerce.date(),
   description: z.string(),
   image: z.string().optional(),
-  // SEO overrides — used for the <title> and <meta name="description"> only.
-  // Fall back to `title` / `description` when absent.
+  // Surcharges SEO : utilisées pour le <title> et la meta description uniquement.
+  // Repli sur `title` / `description` si absentes.
   seoTitle: z.string().optional(),
   seoDescription: z.string().optional(),
 });
