@@ -4,14 +4,14 @@ import { track, telHref } from '../../data/tracking.js';
 const { phone, phoneDays, phoneHours } = siteData.contact.details;
 ---
 
-<div class="utility">
+<section class="utility" aria-label="Téléphone et horaires">
   <div class="site-wrap utility-inner">
     <span class="utility-hours">Par téléphone, {phoneDays}, {phoneHours}</span>
     <a class="utility-phone" href={telHref(phone)} {...track('telephone', 'barre')}>
       <span class="visually-hidden">Appeler le </span>{phone}
     </a>
   </div>
-</div>
+</section>
 
 <style>
   .utility {

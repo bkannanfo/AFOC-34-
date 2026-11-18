@@ -272,7 +272,8 @@
           "sectionTitle": "État de conformité",
           "text": [
             "Le site afoc34.fr est non conforme au référentiel général d'amélioration de l'accessibilité (RGAA), car aucun audit de conformité complet n'a encore été réalisé.",
-            "Des vérifications automatisées et des contrôles manuels ciblés ont été menés lors de la refonte du site (titres, textes alternatifs, contrastes, navigation au clavier, formulaires, affichage sur petit écran)."
+            "Des contrôles ont été menés le 18/11/2026. Analyse automatique avec l'outil axe-core sur les 26 pages, à trois largeurs d'écran : aucune anomalie détectée. Calcul des contrastes de 1 830 textes sur 20 pages : rapport minimal de 5,9 pour 1. Parcours au clavier de la page Contact, avec contour de focus visible, et vérification qu'aucune règle de style ne supprime ce contour. Affichage de 320 à 1280 pixels sans défilement horizontal. Lecture de 12 pages avec les espacements de texte renforcés.",
+            "Ces contrôles ne remplacent pas un audit complet du RGAA par un auditeur, ni un test avec un lecteur d'écran, qui restent à réaliser."
           ]
         },
         {
