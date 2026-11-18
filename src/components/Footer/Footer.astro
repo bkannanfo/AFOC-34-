@@ -31,7 +31,7 @@ const copyright = siteData.footer.text.replace(/© d{4}/, '© ' + new Date().get
   }
   .footer-inner {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     gap: 16px 28px;
     flex-wrap: wrap;
@@ -54,6 +54,8 @@ const copyright = siteData.footer.text.replace(/© d{4}/, '© ' + new Date().get
     display: flex;
     gap: 8px 22px;
     flex-wrap: wrap;
+    justify-content: flex-end;
+    flex: 1 1 380px;
   }
   .footlinks a {
     font-size: 14px;
@@ -69,10 +71,10 @@ const copyright = siteData.footer.text.replace(/© d{4}/, '© ' + new Date().get
   .footid {
     display: grid;
     gap: 10px;
+    flex: 1 1 560px;
   }
   .footcredit {
     margin: 0;
-    padding-left: 78px;
     font-size: 14px;
     line-height: 1.7;
     color: var(--color-muted);
