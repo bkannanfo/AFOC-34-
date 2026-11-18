@@ -5,16 +5,18 @@ import logo from '../../../public/img/logo.jpg';
 
 <footer class="site-footer">
   <div class="site-wrap footer-inner">
-    <div class="footbrand">
-      <img src={logo.src} width="64" height="32" alt="Logo AFOC" />
-      <span>AFOC 34 · Association Force Ouvrière Consommateurs de l'Hérault</span>
+    <div class="footid">
+      <div class="footbrand">
+        <img src={logo.src} width="64" height="32" alt="Logo AFOC" />
+        <span>AFOC 34 · Association Force Ouvrière Consommateurs de l'Hérault</span>
+      </div>
+      <p class="footcredit">
+        Développé par Kannann - <a href="https://k4ydigital.fr/">K4Y DIGITAL</a>
+      </p>
     </div>
     <nav class="footlinks" aria-label="Liens de pied de page">
       {siteData.footer.legalLinks.map((link) => <a href={link.url}>{link.name}</a>)}
     </nav>
-    <p class="footcredit">
-      Développé par Kannann - <a href="https://k4ydigital.fr/">K4Y DIGITAL</a>
-    </p>
   </div>
 </footer>
 
@@ -62,8 +64,13 @@ import logo from '../../../public/img/logo.jpg';
     text-decoration: underline;
     text-underline-offset: 3px;
   }
+  .footid {
+    display: grid;
+    gap: 10px;
+  }
   .footcredit {
     margin: 0;
+    padding-left: 78px;
     font-size: 14px;
     color: var(--color-muted);
   }
