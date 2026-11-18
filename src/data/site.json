@@ -132,7 +132,7 @@
       "content": [
         {
           "sectionTitle": "Éditeur du site",
-          "text": "Association Force Ouvrière Consommateurs (AFOC) de l'Hérault – Association sans but lucratif régie par la loi du 1er juillet 1901. Siège social : Maison des Syndicats, 474 Allée Henri II de Montmorency, 34000 Montpellier. Numéro RNA : W343007078."
+          "text": "Association Force Ouvrière Consommateurs (AFOC) de l'Hérault, association sans but lucratif régie par la loi du 1er juillet 1901. Siège social : Maison des Syndicats, 474 Allée Henri II de Montmorency, 34000 Montpellier. Numéro RNA : W343007078."
         },
         {
           "sectionTitle": "Responsable de publication",
@@ -231,7 +231,7 @@
           "text": "Le site afoc34.fr n'utilise pas de cookies publicitaires et ne dépose pas de cookies destinés à suivre les visiteurs à des fins de publicité personnalisée."
         },
         {
-          "sectionTitle": "Mesure d'audience – Umami",
+          "sectionTitle": "Mesure d'audience avec Umami",
           "text": [
             "Le site utilise Umami afin de mesurer sa fréquentation et d'améliorer son contenu et son fonctionnement.",
             "Umami est utilisé sans dépôt de cookie. Selon sa documentation officielle, cette solution est conçue pour respecter la vie privée et anonymiser les données de mesure d'audience.",
