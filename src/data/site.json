@@ -123,7 +123,7 @@
       { "name": "Protection des données", "url": "/politique-confidentialite" },
       { "name": "Cookies", "url": "/politique-cookies" },
       { "name": "Plan du site", "url": "/plan-du-site" },
-      { "name": "Accessibilité : non conforme", "url": "/accessibilite" }
+      { "name": "Accessibilité", "url": "/accessibilite" }
     ]
   },
   "legal": {

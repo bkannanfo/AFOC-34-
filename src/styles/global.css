@@ -61,6 +61,9 @@
   --color-on-teal: #dcebe7;
   --color-coral-light: #f1b8a5;
   --color-white: #ffffff;
+  --color-foot-text: #dcebe7;
+  --color-foot-muted: #aec4bf;
+  --color-foot-line: #38575c;
 
   --font-display: 'Source Serif 4', Georgia, 'Times New Roman', serif;
   --font-text: 'Avenir Next', Avenir, 'Segoe UI', sans-serif;

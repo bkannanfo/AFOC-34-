@@ -1,87 +1,213 @@
 ---
-import siteData from '../../data/site.json';
 import { Image } from 'astro:assets';
+import siteData from '../../data/site.json';
 import logo from '../../assets/logo.jpg';
-const copyright = siteData.footer.text.replace(/© d{4}/, '© ' + new Date().getFullYear());
+import { track, telHref } from '../../data/tracking.js';
+
+const { phone, phoneDays, phoneHours, email } = siteData.contact.details;
+const { addressLines } = siteData.permanences.locations[0];
+// L'année du © se met à jour toute seule.
+const copyright = siteData.footer.text.replace(/© \d{4}/, '© ' + new Date().getFullYear());
 ---
 
 <footer class="site-footer">
-  <div class="site-wrap footer-inner">
-    <div class="footid">
-      <div class="footbrand">
-        <Image src={logo} width={64} height={32} densities={[1, 2]} format="webp" alt="Logo AFOC" />
-        <span>AFOC 34 · Association Force Ouvrière Consommateurs de l'Hérault</span>
-      </div>
-      <p class="footcredit">
-        {copyright}<br />
+  <div class="site-wrap footer-grid">
+    <div class="foot-identity">
+      <span class="logo-plate">
+        <Image src={logo} width={96} height={48} densities={[1, 2]} format="webp" alt="Logo AFOC" />
+      </span>
+      <p class="foot-name">AFOC 34</p>
+      <p class="foot-sub">Association Force Ouvrière Consommateurs de l'Hérault</p>
+      <p class="foot-legal">{copyright}</p>
+      <p class="foot-credit">
         Développé par Kannann - <a href="https://k4ydigital.fr/">K4Y DIGITAL</a>
       </p>
     </div>
-    <nav class="footlinks" aria-label="Liens de pied de page">
-      {siteData.footer.legalLinks.map((link) => <a href={link.url}>{link.name}</a>)}
+
+    <div class="foot-contact">
+      <h2 class="foot-title">Nous joindre</h2>
+      <a class="foot-phone" href={telHref(phone)} {...track('telephone', 'pied')}>
+        <span class="visually-hidden">Appeler le </span>{phone}
+      </a>
+      <p class="foot-hours">Par téléphone, {phoneDays}, {phoneHours}</p>
+      <p class="foot-mail"><a href={`mailto:${email}`}>{email}</a></p>
+      <address class="foot-address">
+        {
+          addressLines.map((line, i) => (
+            <>
+              {i > 0 && <br />}
+              {line}
+            </>
+          ))
+        }
+      </address>
+    </div>
+
+    <nav class="foot-links" aria-label="Liens de pied de page">
+      <h2 class="foot-title">Informations</h2>
+      <ul>
+        {
+          siteData.footer.legalLinks.map((link) => (
+            <li>
+              <a href={link.url}>{link.name}</a>
+            </li>
+          ))
+        }
+      </ul>
     </nav>
   </div>
 </footer>
 
 <style>
   .site-footer {
-    padding: 30px 0;
-    background: var(--color-paper);
-    border-top: 1px solid var(--color-line);
+    position: relative;
+    background: var(--color-ink);
+    color: var(--color-foot-text);
+    padding: 64px 0 56px;
     font-family: var(--font-text);
   }
-  .footer-inner {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 16px 28px;
-    flex-wrap: wrap;
+  .site-footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: max(36px, calc((100% - 1220px) / 2));
+    width: 46px;
+    height: 3px;
+    background: var(--color-coral-light);
   }
-  .footbrand {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    color: var(--color-muted);
-    font-size: 14px;
-    line-height: 1.5;
-  }
-  .footbrand img {
-    /* fond blanc du JPG fondu dans le fond crème */
-    mix-blend-mode: multiply;
-    flex: 0 0 auto;
-    display: block;
-  }
-  .footlinks {
-    display: flex;
-    gap: 8px 22px;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    flex: 1 1 380px;
-  }
-  .footlinks a {
-    font-size: 14px;
-    color: var(--color-muted);
-    text-decoration: none;
-    padding: 4px 0;
-  }
-  .footlinks a:hover {
-    color: var(--color-teal);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-  .footid {
+  .footer-grid {
     display: grid;
-    gap: 10px;
-    flex: 1 1 560px;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr) minmax(0, 0.7fr);
+    gap: 40px clamp(32px, 5vw, 72px);
+    align-items: start;
   }
-  .footcredit {
+  .logo-plate {
+    display: inline-block;
+    background: var(--color-white);
+    padding: 8px 10px;
+    margin-bottom: 22px;
+    line-height: 0;
+  }
+  .foot-name {
+    margin: 0 0 4px;
+    font: 500 26px/1.15 var(--font-display);
+    letter-spacing: -0.02em;
+    color: var(--color-white);
+  }
+  .foot-sub {
+    margin: 0 0 22px;
+    max-width: 340px;
+    font-size: 15px;
+    color: var(--color-foot-muted);
+  }
+  .foot-legal,
+  .foot-credit {
     margin: 0;
     font-size: 14px;
     line-height: 1.7;
-    color: var(--color-muted);
+    color: var(--color-foot-muted);
   }
-  .footcredit a {
+  .foot-legal {
+    padding-top: 18px;
+    border-top: 1px solid var(--color-foot-line);
+    max-width: 380px;
+  }
+  .foot-title {
+    margin: 0 0 16px;
+    font: 700 12px/1.4 var(--font-text);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-coral-light);
+  }
+  .foot-phone {
+    display: inline-block;
+    font: 500 30px/1.15 var(--font-display);
+    letter-spacing: -0.02em;
+    color: var(--color-white);
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-foot-muted);
+    padding-bottom: 2px;
+  }
+  .foot-phone:hover {
+    border-color: var(--color-white);
+  }
+  .foot-hours {
+    margin: 10px 0 20px;
+    font-size: 14px;
+    color: var(--color-foot-muted);
+  }
+  .foot-mail {
+    margin: 0 0 14px;
+    font-size: 15px;
+  }
+  .foot-address {
+    font-style: normal;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--color-foot-muted);
+  }
+  a {
     color: inherit;
+  }
+  .foot-mail a,
+  .foot-credit a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: var(--color-foot-muted);
+  }
+  .foot-credit a {
     font-weight: 700;
+    color: var(--color-white);
+  }
+  .foot-mail a:hover,
+  .foot-credit a:hover {
+    text-decoration-color: var(--color-white);
+  }
+  .foot-links ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--color-foot-line);
+  }
+  .foot-links li {
+    border-bottom: 1px solid var(--color-foot-line);
+  }
+  .foot-links a {
+    display: block;
+    padding: 11px 0;
+    font-size: 15px;
+    color: var(--color-foot-text);
+    text-decoration: none;
+  }
+  .foot-links a:hover {
+    color: var(--color-white);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  /* Focus lisible sur fond sombre */
+  .site-footer :global(a:focus-visible) {
+    outline-color: var(--color-coral-light);
+  }
+  @media (max-width: 900px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .foot-identity {
+      grid-column: 1 / -1;
+    }
+    .site-footer::before {
+      left: 26px;
+    }
+  }
+  @media (max-width: 720px) {
+    .site-footer {
+      padding: 48px 0 40px;
+    }
+    .footer-grid {
+      grid-template-columns: 1fr;
+    }
+    .site-footer::before {
+      left: 20px;
+    }
   }
 </style>
