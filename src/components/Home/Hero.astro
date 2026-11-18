@@ -1,12 +1,12 @@
 ---
 import { track } from '../../data/tracking.js';
+import HeraultMap from './HeraultMap.astro';
 
 const issues = [
   { num: '01', href: '/logement-hlm', title: 'Charges, bail, état des lieux', tag: 'Vie locative & HLM' },
   { num: '02', href: '/consommation', title: 'Achat ou service litigieux', tag: 'Droits des consommateurs' },
   { num: '03', href: '/conseils', title: 'Une démarche à éclaircir', tag: 'Conseils & information' },
 ];
-const towns = ['Montpellier', 'Béziers', 'Sète'];
 ---
 
 <section class="hero" aria-labelledby="hero-title">
@@ -54,9 +54,9 @@ const towns = ['Montpellier', 'Béziers', 'Sète'];
           ))
         }
       </ul>
-      <div class="panel-bottom">
-        <span>Dans l'Hérault</span>
-        <ul class="towns">{towns.map((town) => <li>{town}</li>)}</ul>
+      <div class="panel-map">
+        <p class="panel-map-label">Nos permanences dans l'Hérault</p>
+        <HeraultMap />
       </div>
     </aside>
   </div>
@@ -217,35 +217,16 @@ const towns = ['Montpellier', 'Béziers', 'Sète'];
     color: var(--color-coral);
     font-size: 15px;
   }
-  .panel-bottom {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    padding: 16px 0 18px;
+  .panel-map {
+    padding: 18px 0 22px;
+  }
+  .panel-map-label {
+    margin: 0 0 14px;
     color: var(--color-muted);
     font-size: 12px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     font-weight: 700;
-  }
-  .towns {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  .towns li {
-    border: 1px solid var(--color-line);
-    padding: 4px 9px;
-    color: var(--color-teal);
-    font-size: 13px;
-    letter-spacing: 0;
-    text-transform: none;
-    font-weight: 600;
   }
   @media (max-width: 900px) {
     .hero-grid {
@@ -266,13 +247,6 @@ const towns = ['Montpellier', 'Béziers', 'Sète'];
     }
     .panel {
       padding: 24px 20px 4px;
-    }
-    .panel-bottom {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-    .towns {
-      justify-content: flex-start;
     }
   }
 </style>
