@@ -1,7 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/Page/PageHero.astro';
-import ContactBand from '../components/Home/ContactBand.astro';
 import siteData from '../data/site.json';
 import { track, telHref } from '../data/tracking.js';
 
@@ -63,15 +62,13 @@ const mapUrlFor = (loc) =>
       <div class="perm-foot">
         <p>
           <strong>Important :</strong> les permanences peuvent être soumises à modification. Nous vous
-          conseillons de nous contacter par téléphone au
+          conseillons de nous contacter par téléphone au{' '}
           <a href={telHref(phone)} {...track('telephone', 'permanences')}>{phone}</a> avant de vous
           déplacer.
         </p>
       </div>
     </div>
   </section>
-
-  <ContactBand />
 </Layout>
 
 <style>

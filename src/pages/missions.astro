@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/Page/PageHero.astro';
 import AideJuridique from '../components/UI/AideJuridique.astro';
-import ContactBand from '../components/Home/ContactBand.astro';
 import siteData from '../data/site.json';
 import { iconPaths } from '../data/icons.js';
 import { track } from '../data/tracking.js';
@@ -68,8 +67,6 @@ const { services } = siteData;
         <AideJuridique position="missions" />
       </div>
     </section>
-
-    <ContactBand />
   </div>
 </Layout>
 
