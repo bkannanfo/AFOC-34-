@@ -25,25 +25,25 @@
     {
       "title": "Logement & HLM",
       "href": "/logement-hlm",
-      "desc": "Spécialiste du logement social et privé : charges, état des lieux, bails et Commissions de Concertation Locative (PCL).",
+      "desc": "Logement social ou privé : charges, état des lieux, bail, et notre présence dans les commissions de concertation locative.",
       "icon": "home-icon"
     },
     {
       "title": "Consommation",
       "href": "/consommation",
-      "desc": "Protection face aux arnaques, litiges opérateurs internet, démarchage abusif, banques et assurances.",
+      "desc": "Arnaques, démarchage abusif, litige avec votre opérateur internet, votre banque ou votre assurance.",
       "icon": "shopping-cart-icon"
     },
     {
       "title": "Conseils",
       "href": "/conseils",
-      "desc": "Nos bénévoles vous conseillent et vous accompagnent, sur les démarches administratives et à toute situation nécessitant un appui juridique ou pratiques.",
+      "desc": "Une démarche administrative qui coince, un courrier à comprendre : nos bénévoles vous aident à y voir clair.",
       "icon": "shield-check-icon"
     }
   ],
   "permanences": {
-    "title": "Nos Permanences dans l'Hérault",
-    "description": "Retrouvez nos conseillers pour un accueil de proximité.",
+    "title": "Nos permanences dans l'Hérault",
+    "description": "Nos bénévoles vous reçoivent à Montpellier, Béziers et Sète.",
     "locations": [
       {
         "city": "Montpellier",
@@ -106,7 +106,7 @@
   },
   "contact": {
     "title": "Contactez l'AFOC 34",
-    "description": "Expliquez-nous votre situation pour une prise en charge rapide.",
+    "description": "Expliquez-nous votre situation : un bénévole vous répond.",
     "details": {
       "address": "Maison des Syndicats, 474 Allée Henri II de Montmorency, 34000 Montpellier",
       "phone": "06 80 94 18 13",
