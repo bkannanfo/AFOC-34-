@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import PageHero from '../Page/PageHero.astro';
 import ContactBand from '../Home/ContactBand.astro';
+import GuidePratique from './GuidePratique.astro';
 
 // Props : collection ('consommation' | 'logement' | 'conseils'), basePath, tag,
 // heroLabel, heroTitle, heroSub.
@@ -14,6 +15,8 @@ const formatDate = (date) =>
 ---
 
 <PageHero eyebrow={heroLabel} title={heroTitle} intro={heroSub} />
+
+<GuidePratique collection={collection} />
 
 <section class="section" aria-labelledby="articles-title">
   <div class="site-wrap">

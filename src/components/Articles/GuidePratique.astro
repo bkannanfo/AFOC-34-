@@ -1,0 +1,185 @@
+---
+import { guides, verifiedOn } from '../../data/guides.js';
+import { track } from '../../data/tracking.js';
+
+// Prop : collection ('consommation' | 'logement' | 'conseils'). Rien n'est affiché sans guide.
+const { collection } = Astro.props;
+const guide = guides[collection];
+---
+
+{
+  guide && (
+    <section class="section guide-section" aria-labelledby={`guide-${collection}`}>
+      <div class="site-wrap">
+        <div class="guide">
+          <div class="guide-head">
+            <p class="eyebrow">Guide pratique</p>
+            <h2 id={`guide-${collection}`}>{guide.title}</h2>
+            <p class="guide-intro">{guide.intro}</p>
+          </div>
+
+          <div class="guide-grid">
+            <div>
+              <h3>Les étapes</h3>
+              <ol class="steps">
+                {guide.steps.map((step) => (
+                  <li>{step}</li>
+                ))}
+              </ol>
+              {guide.note && <p class="guide-note">{guide.note}</p>}
+            </div>
+
+            <div class="guide-side">
+              <div>
+                <h3>Les documents à préparer</h3>
+                <ul class="docs">
+                  {guide.documents.map((doc) => (
+                    <li>{doc}</li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h3>Les sources officielles</h3>
+                <ul class="sources">
+                  {guide.sources.map((source) => (
+                    <li>
+                      <a href={source.url} target="_blank" rel="noopener noreferrer">
+                        {source.label}
+                        <span class="visually-hidden"> (nouvel onglet)</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <p class="guide-foot">
+            Informations générales, relues le {verifiedOn} sur les sites officiels cités. Elles ne
+            remplacent pas l'avis d'un juriste. Pour votre situation, parlez-en à un bénévole :{' '}
+            <a href="/contact" {...track('contact', `guide-${collection}`)}>contactez l'AFOC 34</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .guide-section {
+    padding-bottom: 0;
+  }
+  .guide {
+    background: var(--color-white);
+    border: 1px solid var(--color-line);
+    border-top: 3px solid var(--color-teal);
+    padding: 34px 32px 28px;
+  }
+  .eyebrow {
+    margin: 0;
+  }
+  h2 {
+    font: 500 clamp(28px, 3.2vw, 38px) / 1.12 var(--font-display);
+    letter-spacing: -0.03em;
+    margin: 14px 0 10px;
+    max-width: 760px;
+  }
+  .guide-intro {
+    margin: 0 0 26px;
+    font-size: 16px;
+    color: var(--color-muted);
+    max-width: 640px;
+  }
+  .guide-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.9fr);
+    gap: 34px 48px;
+    align-items: start;
+  }
+  h3 {
+    font: 500 22px/1.2 var(--font-display);
+    letter-spacing: -0.02em;
+    margin: 0 0 12px;
+  }
+  .steps {
+    list-style: none;
+    counter-reset: etape;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--color-line);
+  }
+  .steps li {
+    counter-increment: etape;
+    display: grid;
+    grid-template-columns: 34px minmax(0, 1fr);
+    gap: 10px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--color-line);
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--color-ink-soft);
+  }
+  .steps li::before {
+    content: counter(etape, decimal-leading-zero);
+    font: italic 15px/1.65 var(--font-display);
+    color: var(--color-coral);
+  }
+  .guide-note {
+    margin: 16px 0 0;
+    padding: 14px 16px;
+    background: var(--color-sand);
+    border: 1px solid var(--color-sand-line);
+    font-size: 15px;
+    color: var(--color-ink-soft);
+  }
+  .guide-side {
+    display: grid;
+    gap: 28px;
+  }
+  .docs,
+  .sources {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--color-line);
+  }
+  .docs li,
+  .sources li {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--color-line);
+    font-size: 15px;
+    color: var(--color-ink-soft);
+  }
+  .sources a {
+    color: var(--color-teal);
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .sources a:hover {
+    color: var(--color-coral);
+  }
+  .guide-foot {
+    margin: 26px 0 0;
+    padding-top: 18px;
+    border-top: 1px solid var(--color-line);
+    font-size: 14px;
+    color: var(--color-muted);
+  }
+  .guide-foot a {
+    color: var(--color-teal);
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  @media (max-width: 900px) {
+    .guide-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 720px) {
+    .guide {
+      padding: 26px 20px 22px;
+    }
+  }
+</style>
