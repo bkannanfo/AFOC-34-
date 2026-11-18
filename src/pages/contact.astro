@@ -12,7 +12,10 @@ const { address, phone, phoneHours, email, access } = contact.details;
 const mapUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(address);
 ---
 
-<Layout title={contact.title} description={contact.description}>
+<Layout
+  title={contact.title}
+  description="Contactez l'AFOC 34 par téléphone au 06 80 94 18 13, par courriel ou avec le formulaire en ligne. Siège : Maison des Syndicats à Montpellier."
+>
   <div class="refonte">
     <PageHero eyebrow="Nous joindre" title={contact.title} intro={contact.description} />
 
