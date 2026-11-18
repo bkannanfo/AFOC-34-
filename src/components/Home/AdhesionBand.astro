@@ -1,0 +1,116 @@
+---
+import { track } from '../../data/tracking.js';
+const benefits = [
+  'Traitement prioritaire de vos litiges',
+  "Accès aux dossiers d'expertise Logement et Consommation",
+  'Consultations juridiques réservées aux adhérents',
+];
+---
+
+<section class="join" aria-labelledby="join-title">
+  <div class="site-wrap join-grid">
+    <div>
+      <p class="eyebrow">Soutenir l'association</p>
+      <h2 id="join-title">Adhérer à l'AFOC 34.</h2>
+      <p class="join-text">Adhérer, c'est soutenir une association indépendante de défense des citoyens.</p>
+      <ul class="benefits">{benefits.map((item) => <li>{item}</li>)}</ul>
+    </div>
+    <div class="fee">
+      <p class="fee-label">Adhésion en ligne</p>
+      <p class="fee-title">Un membre vous contactera.</p>
+      <p class="fee-text">
+        Remplissez le formulaire : un membre de l'AFOC 34 vous contacte après réception de votre
+        demande.
+      </p>
+      <a class="button" href="/adhesion" {...track('adhesion', 'adhesion')}>
+        Adhérer en ligne <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .join {
+    background: var(--color-teal);
+    color: var(--color-white);
+    padding: 78px 0;
+  }
+  .join-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: clamp(34px, 6vw, 84px);
+    align-items: center;
+  }
+  .eyebrow {
+    margin: 0;
+    color: var(--color-on-teal);
+  }
+  .eyebrow::before {
+    background: var(--color-coral-light);
+  }
+  h2 {
+    font: 500 clamp(34px, 3.8vw, 46px) / 1.08 var(--font-display);
+    letter-spacing: -0.04em;
+    margin: 16px 0 14px;
+    color: var(--color-white);
+  }
+  .join-text {
+    font-size: 16px;
+    color: var(--color-on-teal);
+    max-width: 520px;
+    margin: 0 0 20px;
+  }
+  .benefits {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .benefits li {
+    padding: 11px 0;
+    border-top: 1px solid color-mix(in srgb, var(--color-white) 25%, transparent);
+    font-size: 16px;
+  }
+  .benefits li:last-child {
+    border-bottom: 1px solid color-mix(in srgb, var(--color-white) 25%, transparent);
+  }
+  .fee {
+    background: var(--color-white);
+    color: var(--color-ink);
+    padding: 30px 28px;
+  }
+  .fee-label {
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--color-muted);
+    margin: 0 0 10px;
+  }
+  .fee-title {
+    font: 500 28px/1.2 var(--font-display);
+    letter-spacing: -0.02em;
+    color: var(--color-teal);
+    margin: 0 0 10px;
+  }
+  .fee-text {
+    font-size: 15px;
+    color: var(--color-muted);
+    margin: 0 0 20px;
+  }
+  @media (max-width: 900px) {
+    .join-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 720px) {
+    .join {
+      padding: 60px 0;
+    }
+    .fee {
+      padding: 26px 20px;
+    }
+    .fee .button {
+      display: flex;
+    }
+  }
+</style>

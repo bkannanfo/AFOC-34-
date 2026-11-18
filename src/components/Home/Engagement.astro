@@ -1,0 +1,92 @@
+---
+const commitments = [
+  { num: '01', title: 'Information', text: 'Vos droits expliqués simplement, sur le logement et la consommation.' },
+  { num: '02', title: 'Accompagnement amiable', text: "Une aide pour chercher une solution à l'amiable avant d'aller plus loin." },
+  { num: '03', title: 'Représentation en commission', text: 'Une présence dans les commissions de concertation locative.' },
+  { num: '04', title: 'Défense collective', text: 'La défense des intérêts collectifs des consommateurs et des locataires.' },
+];
+---
+
+<section class="section" aria-labelledby="engage-title">
+  <div class="site-wrap engage">
+    <div>
+      <p class="eyebrow">Notre engagement</p>
+      <h2 id="engage-title">Informer, conseiller et défendre.</h2>
+      <p class="engage-text">
+        Depuis 1975, l'AFOC 34 accompagne les consommateurs et les locataires de l'Hérault face aux
+        litiges du quotidien, avec l'aide de bénévoles.
+      </p>
+    </div>
+    <div class="commit-grid">
+      {
+        commitments.map((item) => (
+          <article class="commit">
+            <span class="commit-num" aria-hidden="true">{item.num}</span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .engage {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: clamp(34px, 6vw, 84px);
+    align-items: start;
+  }
+  .eyebrow {
+    margin: 0;
+  }
+  h2 {
+    font: 500 clamp(34px, 3.8vw, 46px) / 1.08 var(--font-display);
+    letter-spacing: -0.04em;
+    margin: 16px 0 14px;
+  }
+  .engage-text {
+    font-size: 16px;
+    color: var(--color-muted);
+    max-width: 430px;
+    margin: 0;
+  }
+  .commit-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .commit {
+    background: var(--color-sand);
+    border: 1px solid var(--color-sand-line);
+    padding: 22px 22px 20px;
+  }
+  .commit-num {
+    display: block;
+    font: italic 14px/1 var(--font-display);
+    color: var(--color-coral);
+    margin-bottom: 10px;
+  }
+  .commit h3 {
+    font: 500 20px/1.2 var(--font-display);
+    letter-spacing: -0.02em;
+    margin: 0 0 7px;
+  }
+  .commit p {
+    font-size: 15px;
+    color: var(--color-muted);
+    margin: 0;
+    line-height: 1.6;
+  }
+  @media (max-width: 900px) {
+    .engage {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 720px) {
+    .commit-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

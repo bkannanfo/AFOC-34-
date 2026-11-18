@@ -1,0 +1,122 @@
+---
+const domains = [
+  {
+    title: 'Logement & HLM',
+    text: 'Charges, état des lieux, baux, commissions de concertation locative.',
+    href: '/logement-hlm',
+    icon: 'm3 10 9-7 9 7M5 9.5V21h14V9.5M9 21v-7h6v7',
+  },
+  {
+    title: 'Consommation',
+    text: 'Arnaques, opérateurs, démarchage, banques et assurances.',
+    href: '/consommation',
+    icon: 'M4 5h16l-1.5 16h-13L4 5ZM9 8V6a3 3 0 0 1 6 0v2M8 13h8',
+  },
+  {
+    title: 'Conseils & démarches',
+    text: "CAF, CPAM et démarches administratives : s'y retrouver.",
+    href: '/conseils',
+    icon: 'M12 3 20 6v5c0 5-3.2 8.3-8 10-4.8-1.7-8-5-8-10V6l8-3Zm-3.5 9 2.3 2.3 4.8-5',
+  },
+];
+---
+
+<section class="section domains" id="missions" aria-labelledby="missions-title">
+  <div class="site-wrap">
+    <div class="heading">
+      <div>
+        <p class="eyebrow">S'informer · être accompagné</p>
+        <h2 id="missions-title">Sur quoi agir&nbsp;?</h2>
+      </div>
+      <p>Des portes d'entrée simples vers les sujets du quotidien et les ressources de l'AFOC 34.</p>
+    </div>
+    <div class="domain-grid">
+      {
+        domains.map((domain) => (
+          <article class="domain">
+            <span class="domain-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                <path d={domain.icon} />
+              </svg>
+            </span>
+            <h3>{domain.title}</h3>
+            <p>{domain.text}</p>
+            <a href={domain.href}>
+              Voir les informations<span class="visually-hidden"> : {domain.title}</span>
+              <span class="arrow" aria-hidden="true">↗</span>
+            </a>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .domains {
+    background: var(--color-pale);
+    border-top: 3px solid var(--color-teal);
+  }
+  .domain-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .domain {
+    display: flex;
+    flex-direction: column;
+    min-height: 240px;
+    background: var(--color-white);
+    border: 1px solid var(--color-line);
+    padding: 27px 26px 24px;
+  }
+  .domain-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: var(--color-teal);
+    background: var(--color-icon-bg);
+    margin-bottom: 18px;
+  }
+  .domain-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+  .domain h3 {
+    font: 500 24px/1.15 var(--font-display);
+    letter-spacing: -0.02em;
+    margin: 0 0 9px;
+  }
+  .domain p {
+    font-size: 15px;
+    color: var(--color-muted);
+    line-height: 1.65;
+    margin: 0 0 20px;
+  }
+  .domain a {
+    margin-top: auto;
+    align-self: flex-start;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--color-teal);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+  .domain a:hover {
+    border-color: var(--color-teal);
+  }
+  .arrow {
+    color: var(--color-coral);
+    padding-left: 6px;
+  }
+  @media (max-width: 900px) {
+    .domain-grid {
+      grid-template-columns: 1fr;
+    }
+    .domain {
+      min-height: 0;
+    }
+  }
+</style>

@@ -1,0 +1,138 @@
+---
+import siteData from '../../data/site.json';
+import { track, telHref } from '../../data/tracking.js';
+const { locations } = siteData.permanences;
+const { phone } = siteData.contact.details;
+---
+
+<section class="section" id="permanences" aria-labelledby="perm-title">
+  <div class="site-wrap">
+    <div class="heading">
+      <div>
+        <p class="eyebrow">Nous rencontrer</p>
+        <h2 id="perm-title">Où et quand nous trouver.</h2>
+      </div>
+      <p>Les permanences peuvent changer : appelez avant de vous déplacer.</p>
+    </div>
+
+    <div class="perm-grid">
+      {
+        locations.map((loc, index) => (
+          <article class:list={['perm', index === 0 && 'main']}>
+            <h3>{loc.city}</h3>
+            <address>
+              {loc.addressLines.map((line, i) => (
+                <>
+                  {i > 0 && <br />}
+                  {line}
+                </>
+              ))}
+            </address>
+            {loc.hours && (
+              <ul class="hours">
+                {loc.hours.map((slot) => (
+                  <li>
+                    <b>{slot.days}</b>
+                    <span>{slot.time}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <p class="perm-note">{loc.note}</p>
+            {!loc.hours && (
+              <a class="perm-call" href={telHref(phone)} {...track('telephone', 'permanences')}>
+                {phone}
+              </a>
+            )}
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="perm-foot">
+      <span>Un doute sur le lieu ou le jour ? Un appel suffit.</span>
+      <a class="text-link" href="/permanences">Tous les détails des permanences <span aria-hidden="true">↗</span></a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .perm-grid {
+    display: grid;
+    grid-template-columns: 1.25fr 1fr 1fr;
+    gap: 16px;
+  }
+  .perm {
+    background: var(--color-white);
+    border: 1px solid var(--color-line);
+    padding: 28px 26px;
+  }
+  .perm.main {
+    border-top: 3px solid var(--color-teal);
+  }
+  .perm h3 {
+    font: 500 26px/1.15 var(--font-display);
+    letter-spacing: -0.02em;
+    margin: 0 0 6px;
+  }
+  address {
+    font-style: normal;
+    font-size: 15px;
+    color: var(--color-ink-soft);
+    margin-bottom: 16px;
+  }
+  .hours {
+    list-style: none;
+    margin: 0 0 16px;
+    padding: 0;
+    border-top: 1px solid var(--color-line);
+  }
+  .hours li {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 4px 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--color-line);
+    font-size: 15px;
+  }
+  .perm-note {
+    font-size: 14px;
+    color: var(--color-muted);
+    margin: 0;
+  }
+  .perm-call {
+    display: inline-block;
+    margin-top: 6px;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-teal);
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-link-line);
+  }
+  .perm-call:hover {
+    color: var(--color-coral);
+    border-color: var(--color-coral);
+  }
+  .perm-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px 20px;
+    flex-wrap: wrap;
+    margin-top: 18px;
+    padding: 18px 22px;
+    background: var(--color-sand);
+    border: 1px solid var(--color-sand-line);
+    font-size: 15px;
+    color: var(--color-ink-soft);
+  }
+  .perm-foot .text-link {
+    white-space: normal;
+  }
+  @media (max-width: 900px) {
+    .perm-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
