@@ -1,6 +1,7 @@
 ---
 import siteData from '../../data/site.json';
-import logo from '../../../public/img/logo.jpg';
+import { Image } from 'astro:assets';
+import logo from '../../assets/logo.jpg';
 const copyright = siteData.footer.text.replace(/© d{4}/, '© ' + new Date().getFullYear());
 ---
 
@@ -8,7 +9,7 @@ const copyright = siteData.footer.text.replace(/© d{4}/, '© ' + new Date().get
   <div class="site-wrap footer-inner">
     <div class="footid">
       <div class="footbrand">
-        <img src={logo.src} width="64" height="32" alt="Logo AFOC" />
+        <Image src={logo} width={64} height={32} densities={[1, 2]} format="webp" alt="Logo AFOC" />
         <span>AFOC 34 · Association Force Ouvrière Consommateurs de l'Hérault</span>
       </div>
       <p class="footcredit">
