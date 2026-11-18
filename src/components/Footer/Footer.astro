@@ -1,6 +1,7 @@
 ---
 import siteData from '../../data/site.json';
 import logo from '../../../public/img/logo.jpg';
+const copyright = siteData.footer.text.replace(/© d{4}/, '© ' + new Date().getFullYear());
 ---
 
 <footer class="site-footer">
@@ -11,6 +12,7 @@ import logo from '../../../public/img/logo.jpg';
         <span>AFOC 34 · Association Force Ouvrière Consommateurs de l'Hérault</span>
       </div>
       <p class="footcredit">
+        {copyright}<br />
         Développé par Kannann - <a href="https://k4ydigital.fr/">K4Y DIGITAL</a>
       </p>
     </div>
@@ -72,6 +74,7 @@ import logo from '../../../public/img/logo.jpg';
     margin: 0;
     padding-left: 78px;
     font-size: 14px;
+    line-height: 1.7;
     color: var(--color-muted);
   }
   .footcredit a {
