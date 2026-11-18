@@ -1,11 +1,11 @@
----
-const netlifyFormAttrs = {
-  netlify: true,
-  'netlify-honeypot': 'bot-field',
-};
----
-
-<form name="contact" method="POST" {...netlifyFormAttrs} action="/merci-contact" class="form">
+<form
+  name="contact"
+  method="POST"
+  data-netlify="true"
+  netlify-honeypot="bot-field"
+  action="/merci-contact"
+  class="form"
+>
   <input type="hidden" name="form-name" value="contact" />
   <p class="hidden">
     <label>Ne pas remplir : <input name="bot-field" /></label>

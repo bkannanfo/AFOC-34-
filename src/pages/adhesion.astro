@@ -5,10 +5,6 @@ import siteData from '../data/site.json';
 import { track, telHref } from '../data/tracking.js';
 import '../styles/refonte.css';
 
-const netlifyFormAttrs = {
-  netlify: true,
-  'netlify-honeypot': 'bot-field',
-};
 const { phone, phoneHours } = siteData.contact.details;
 const benefits = [
   'Traitement prioritaire de vos litiges.',
@@ -31,7 +27,14 @@ const benefits = [
     <section class="section">
       <div class="site-wrap adhesion-grid">
         <div class="card card-accent">
-          <form name="adhesion" method="POST" {...netlifyFormAttrs} action="/success" class="form">
+          <form
+            name="adhesion"
+            method="POST"
+            data-netlify="true"
+            netlify-honeypot="bot-field"
+            action="/success"
+            class="form"
+          >
             <input type="hidden" name="form-name" value="adhesion" />
             <p class="hidden">
               <label>Ne pas remplir si vous êtes humain : <input name="bot-field" /></label>
