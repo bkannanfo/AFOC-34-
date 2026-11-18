@@ -13,7 +13,10 @@ const currentPath = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '')
       <span class="brand-label"><b>AFOC 34</b>Hérault</span>
       <span class="visually-hidden">, accueil</span>
     </a>
-    <nav class="nav" aria-label="Navigation principale">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-principal" hidden>
+      Menu
+    </button>
+    <nav class="nav" id="menu-principal" aria-label="Navigation principale">
       {
         navLinks.map((link) => (
           <a
@@ -30,6 +33,31 @@ const currentPath = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '')
     </nav>
   </div>
 </header>
+
+<script>
+  // Menu replié sur mobile. Sans JavaScript, les liens restent visibles.
+  const header = document.querySelector('.mast');
+  const toggle = header?.querySelector('.menu-toggle');
+  const menu = header?.querySelector('#menu-principal');
+  if (header && toggle && menu) {
+    toggle.hidden = false;
+    header.setAttribute('data-js', '');
+    const setOpen = (open) => {
+      toggle.setAttribute('aria-expanded', String(open));
+      menu.classList.toggle('open', open);
+    };
+    menu.addEventListener('click', (event) => {
+      if (event.target.closest('a')) setOpen(false);
+    });
+    toggle.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+  }
+</script>
 
 <style>
   .mast {
@@ -109,17 +137,57 @@ const currentPath = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '')
     border-color: var(--color-teal);
     text-decoration: none;
   }
+  .menu-toggle {
+    border: 1px solid var(--color-border-strong);
+    background: var(--color-white);
+    color: var(--color-teal);
+    font: 700 15px/1 var(--font-text);
+    padding: 11px 16px;
+    cursor: pointer;
+  }
+  .menu-toggle:hover {
+    background: var(--color-teal-tint);
+  }
+  .menu-toggle[hidden] {
+    display: none;
+  }
   @media (max-width: 720px) {
     .mast-inner {
       flex-wrap: wrap;
       gap: 0;
-      padding: 14px 0;
+      padding: 12px 0;
     }
     .nav {
       width: 100%;
       justify-content: flex-start;
       gap: 4px 18px;
       padding-top: 12px;
+    }
+    /* Menu replié seulement quand le script est actif */
+    .mast[data-js] .nav {
+      display: none;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      border-top: 1px solid var(--color-line);
+      margin-top: 12px;
+      padding-top: 4px;
+    }
+    .mast[data-js] .nav.open {
+      display: flex;
+    }
+    .mast[data-js] .nav a {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--color-line);
+    }
+    .mast[data-js] .nav .nav-cta {
+      margin-top: 12px;
+      text-align: center;
+    }
+  }
+  @media (min-width: 721px) {
+    .menu-toggle {
+      display: none;
     }
   }
 </style>
