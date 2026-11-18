@@ -1,0 +1,115 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/Page/PageHero.astro';
+
+const byDate = (a, b) => b.data.date.getTime() - a.data.date.getTime();
+const [logement, consommation, conseils] = await Promise.all(
+  ['logement', 'consommation', 'conseils'].map(async (name) =>
+    (await getCollection(name)).sort(byDate),
+  ),
+);
+
+const groups = [
+  {
+    title: "L'association",
+    links: [
+      { name: 'Accueil', url: '/' },
+      { name: 'Nos missions', url: '/missions' },
+      { name: "À propos de l'AFOC 34", url: '/about' },
+      { name: 'Permanences', url: '/permanences' },
+      { name: 'Adhérer', url: '/adhesion' },
+      { name: 'Contact', url: '/contact' },
+    ],
+  },
+  {
+    title: 'Logement & HLM',
+    links: [
+      { name: 'Tous les articles Logement', url: '/logement-hlm' },
+      ...logement.map((a) => ({ name: a.data.title, url: `/logement/${a.id}` })),
+    ],
+  },
+  {
+    title: 'Consommation',
+    links: [
+      { name: 'Tous les articles Consommation', url: '/consommation' },
+      ...consommation.map((a) => ({ name: a.data.title, url: `/consommation/${a.id}` })),
+    ],
+  },
+  {
+    title: 'Conseils',
+    links: [
+      { name: 'Tous les conseils', url: '/conseils' },
+      ...conseils.map((a) => ({ name: a.data.title, url: `/conseils/${a.id}` })),
+    ],
+  },
+  {
+    title: 'Informations légales',
+    links: [
+      { name: 'Mentions légales', url: '/mentions-legales' },
+      { name: 'Protection des données', url: '/politique-confidentialite' },
+      { name: 'Cookies', url: '/politique-cookies' },
+    ],
+  },
+];
+---
+
+<Layout title="Plan du site" description="Toutes les pages du site de l'AFOC 34.">
+  <PageHero eyebrow="Navigation" title="Plan du site" />
+  <section class="section">
+    <div class="site-wrap plan">
+      {
+        groups.map((group) => (
+          <section class="plan-group">
+            <h2>{group.title}</h2>
+            <ul>
+              {group.links.map((link) => (
+                <li>
+                  <a href={link.url}>{link.name}</a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .plan {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .plan-group {
+    background: var(--color-white);
+    border: 1px solid var(--color-line);
+    padding: 26px 24px;
+  }
+  h2 {
+    font: 500 24px/1.2 var(--font-display);
+    letter-spacing: -0.02em;
+    margin: 0 0 12px;
+  }
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--color-line);
+  }
+  li {
+    padding: 9px 0;
+    border-bottom: 1px solid var(--color-line);
+    font-size: 15px;
+  }
+  a {
+    color: var(--color-teal);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  a:hover {
+    color: var(--color-coral);
+  }
+</style>

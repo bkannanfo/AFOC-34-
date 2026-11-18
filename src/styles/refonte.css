@@ -196,3 +196,15 @@
 body:has(.refonte) {
   background: var(--color-paper);
 }
+
+/* Champs obligatoires (RGAA 11.10) */
+.form-help {
+  margin: 0;
+  font-size: 14px;
+  color: var(--color-muted);
+}
+.req {
+  font-weight: 400;
+  font-size: 13px;
+  color: var(--color-coral);
+}
