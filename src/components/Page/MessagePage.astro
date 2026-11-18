@@ -4,7 +4,7 @@ const { eyebrow, title, mark } = Astro.props;
 ---
 
 <section class="message" aria-labelledby="message-title">
-  {mark && <div class="message-mark" aria-hidden="true">{mark}</div>}
+  {mark && <div class="message-mark" aria-hidden="true" data-mark={mark}></div>}
   <div class="site-wrap message-inner">
     <p class="eyebrow">{eyebrow}</p>
     <h1 id="message-title">{title}</h1>
@@ -22,6 +22,9 @@ const { eyebrow, title, mark } = Astro.props;
     min-height: 60vh;
     display: flex;
     align-items: center;
+  }
+  .message-mark::before {
+    content: attr(data-mark);
   }
   .message-mark {
     position: absolute;
