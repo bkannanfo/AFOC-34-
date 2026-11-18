@@ -178,9 +178,11 @@
         {
           "sectionTitle": "Conservation des données",
           "text": [
-            "Les données personnelles sont conservées pendant une durée adaptée à la finalité pour laquelle elles ont été collectées.",
-            "Les données relatives à une adhésion peuvent être conservées pendant la durée de l'adhésion et, lorsque cela est nécessaire, pendant les durées supplémentaires imposées par les obligations légales applicables.",
-            "Les données relatives aux dossiers de litige peuvent être conservées pendant la durée nécessaire à leur traitement et à la défense des droits concernés, puis pendant les durées nécessaires au respect des obligations légales et des délais de prescription applicables."
+            "Les données personnelles sont conservées pendant une durée maximale de 5 ans, correspondant au délai de prescription de droit commun (article 2224 du Code civil).",
+            "Données transmises via le formulaire de contact : 5 ans au maximum à compter du dernier échange.",
+            "Données relatives à une adhésion : pendant la durée de l'adhésion, puis 5 ans au maximum après sa fin.",
+            "Données relatives aux dossiers de litige : pendant le traitement du dossier, puis 5 ans au maximum après sa clôture.",
+            "À l'issue de ces durées, les données sont supprimées."
           ]
         },
         {
