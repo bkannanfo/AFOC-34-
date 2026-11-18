@@ -1,4 +1,5 @@
 ---
+import Arrow from '../UI/Arrow.astro';
 import siteData from '../../data/site.json';
 import { track, telHref } from '../../data/tracking.js';
 const { phone, phoneDays, phoneHours, email } = siteData.contact.details;
@@ -14,9 +15,9 @@ const { phone, phoneDays, phoneHours, email } = siteData.contact.details;
       <a href={telHref(phone)} {...track('telephone', 'contact')}>
         <span class="visually-hidden">Appeler le </span>{phone}
       </a>
-      <a href={`mailto:${email}`}>Écrire un courriel <span aria-hidden="true">↗</span></a>
+      <a href={`mailto:${email}`}>Écrire un courriel <Arrow dir="ne" /></a>
       <a href="/contact" {...track('contact', 'contact')}>
-        Formulaire de contact <span aria-hidden="true">↗</span>
+        Formulaire de contact <Arrow dir="ne" />
       </a>
     </div>
   </div>

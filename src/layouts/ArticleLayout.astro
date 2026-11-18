@@ -1,4 +1,5 @@
 ---
+import Arrow from '../components/UI/Arrow.astro';
 import Layout from './Layout.astro';
 import ContactBand from '../components/Home/ContactBand.astro';
 
@@ -42,7 +43,7 @@ const formattedDate = date.toLocaleDateString('fr-FR', {
       </div>
       <p class="article-back">
         <a class="text-link" href={backHref}>
-          <span aria-hidden="true">←</span> Retour aux articles {tag}
+          <Arrow dir="left" class="arrow-before" /> Retour aux articles {tag}
         </a>
       </p>
     </div>

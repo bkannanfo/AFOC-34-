@@ -1,4 +1,5 @@
 ---
+import Arrow from '../components/UI/Arrow.astro';
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/Page/PageHero.astro';
 import ContactForm from '../components/UI/ContactForm.astro';
@@ -47,7 +48,7 @@ const mapUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURICom
             </p>
             <a class="text-link itinerary" href={mapUrl} target="_blank" rel="noopener noreferrer">
               Ouvrir l'itinéraire<span class="visually-hidden"> (nouvel onglet)</span>
-              <span aria-hidden="true">↗</span>
+              <Arrow dir="ne" />
             </a>
             <p class="map-note">
               L'itinéraire s'ouvrira directement dans votre application GPS (Google Maps, Waze, Apple

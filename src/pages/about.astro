@@ -1,4 +1,5 @@
 ---
+import Arrow from '../components/UI/Arrow.astro';
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/Page/PageHero.astro';
 import siteData from '../data/site.json';
@@ -45,7 +46,7 @@ const { cta } = siteData.hero;
           </p>
         </div>
         <a class="button button-light" href={cta.url} {...track('contact', 'about')}>
-          {cta.label} <span aria-hidden="true">↗</span>
+          {cta.label} <Arrow dir="ne" />
         </a>
       </div>
     </section>

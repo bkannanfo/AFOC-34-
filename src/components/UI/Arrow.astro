@@ -1,0 +1,20 @@
+---
+// Flèche tracée en trait fin, extrémités droites, sans arrondi : remplace les caractères ↗ → ↓ ←.
+// Props : dir ('ne' | 'right' | 'down' | 'left'), class optionnelle. Décorative, donc masquée aux lecteurs d'écran.
+const paths = {
+  ne: 'M4 16 16 4M7 4h9v9',
+  right: 'M3 10h14M11 4l6 6-6 6',
+  down: 'M10 3v14M4 11l6 6 6-6',
+  left: 'M17 10H3M9 4l-6 6 6 6',
+};
+const { dir = 'ne', class: className } = Astro.props;
+---
+
+<svg
+  class:list={['arrow-icon', className]}
+  viewBox="0 0 20 20"
+  aria-hidden="true"
+  focusable="false"
+>
+  <path d={paths[dir]}></path>
+</svg>

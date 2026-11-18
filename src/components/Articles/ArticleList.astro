@@ -1,4 +1,5 @@
 ---
+import Arrow from '../UI/Arrow.astro';
 import { getCollection } from 'astro:content';
 import PageHero from '../Page/PageHero.astro';
 import ContactBand from '../Home/ContactBand.astro';
@@ -39,7 +40,7 @@ const formatDate = (date) =>
               </p>
               {article.data.description && <p class="news-desc">{article.data.description}</p>}
               <span class="news-more" aria-hidden="true">
-                Lire l'article <span>↗</span>
+                Lire l'article <Arrow dir="ne" />
               </span>
             </li>
           ))}

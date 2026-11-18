@@ -1,4 +1,5 @@
 ---
+import Arrow from '../UI/Arrow.astro';
 import { track } from '../../data/tracking.js';
 const benefits = [
   'Traitement prioritaire de vos litiges',
@@ -23,7 +24,7 @@ const benefits = [
         demande.
       </p>
       <a class="button" href="/adhesion" {...track('adhesion', 'adhesion')}>
-        Adhérer en ligne <span aria-hidden="true">↗</span>
+        Adhérer en ligne <Arrow dir="ne" />
       </a>
     </div>
   </div>

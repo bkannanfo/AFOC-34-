@@ -1,4 +1,5 @@
 ---
+import Arrow from '../components/UI/Arrow.astro';
 import Layout from '../layouts/Layout.astro';
 import MessagePage from '../components/Page/MessagePage.astro';
 import { track } from '../data/tracking.js';
@@ -9,7 +10,7 @@ import { track } from '../data/tracking.js';
     <p>La page que vous recherchez n'existe pas ou a été déplacée.</p>
     <a slot="actions" class="button" href="/">Retour à l'accueil</a>
     <a slot="actions" class="text-link" href="/contact" {...track('contact', '404')}>
-      Nous contacter <span aria-hidden="true">↗</span>
+      Nous contacter <Arrow dir="ne" />
     </a>
   </MessagePage>
 </Layout>

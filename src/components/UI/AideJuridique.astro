@@ -1,4 +1,5 @@
 ---
+import Arrow from './Arrow.astro';
 import siteData from '../../data/site.json';
 import { track, telHref } from '../../data/tracking.js';
 const { phone } = siteData.contact.details;
@@ -28,7 +29,7 @@ const { position = 'aide-juridique' } = Astro.props;
     ses seuls membres.
   </p>
   <a class="text-link" href="/adhesion" {...track('adhesion', position)}>
-    Adhérer <span aria-hidden="true">↗</span>
+    Adhérer <Arrow dir="ne" />
   </a>
 </aside>
 
