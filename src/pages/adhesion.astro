@@ -1,102 +1,76 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/Page/PageHero.astro';
+import siteData from '../data/site.json';
+import { track, telHref } from '../data/tracking.js';
+import '../styles/refonte.css';
 
-const netlifyFormAttrs: Record<string, string | boolean> = {
+const netlifyFormAttrs = {
   netlify: true,
   'netlify-honeypot': 'bot-field',
   'data-netlify-recaptcha': 'true',
 };
+const { phone, phoneHours } = siteData.contact.details;
+const benefits = [
+  'Traitement prioritaire de vos litiges.',
+  "Accès à nos dossiers d'expertise Logement & Consommation.",
+  'Soutien à une association indépendante de défense des citoyens.',
+];
 ---
 
 <Layout
   title="Adhérer à l'AFOC 34"
   description="Rejoignez l'AFOC 34 pour défendre vos droits de consommateur et de locataire."
 >
-  <div class="page-hero">
-    <div class="page-hero-inner">
-      <p class="page-hero-label">Rejoignez-nous</p>
-      <h1>Adhésion AFOC 34</h1>
-      <p class="page-hero-sub">Ensemble, défendons vos droits au quotidien.</p>
-    </div>
-  </div>
+  <div class="refonte">
+    <PageHero
+      eyebrow="Rejoignez-nous"
+      title="Adhésion AFOC 34"
+      intro="Ensemble, défendons vos droits au quotidien."
+    />
 
-  <section class="py-20 bg-gray-50">
-    <div class="container max-w-5xl px-6 mx-auto">
-      <div class="grid gap-12 lg:grid-cols-3">
-        <div class="p-8 bg-white border border-gray-100 shadow-xl lg:col-span-2 rounded-3xl">
-          <form
-            name="adhesion"
-            method="POST"
-            {...netlifyFormAttrs}
-            action="/success"
-            class="space-y-6"
-          >
+    <section class="section">
+      <div class="site-wrap adhesion-grid">
+        <div class="card card-accent">
+          <form name="adhesion" method="POST" {...netlifyFormAttrs} action="/success" class="form">
             <input type="hidden" name="form-name" value="adhesion" />
             <p class="hidden">
               <label>Ne pas remplir si vous êtes humain : <input name="bot-field" /></label>
             </p>
 
-            <h2 class="pb-2 mb-6 text-2xl font-bold border-b" style="color: #1b5162;">
-              Vos Informations
-            </h2>
+            <h2>Vos informations</h2>
 
-            <div class="grid gap-6 md:grid-cols-2">
-              <div>
-                <label class="block mb-2 text-sm font-bold">Prénom</label>
-                <input
-                  type="text"
-                  name="firstname"
-                  required
-                  class="w-full p-3 border border-gray-300 outline-none rounded-xl focus:ring-2 focus:ring-primary"
-                />
+            <div class="form-row">
+              <div class="field">
+                <label for="firstname">Prénom</label>
+                <input type="text" id="firstname" name="firstname" required autocomplete="given-name" />
               </div>
-              <div>
-                <label class="block mb-2 text-sm font-bold">Nom</label>
-                <input
-                  type="text"
-                  name="lastname"
-                  required
-                  class="w-full p-3 border border-gray-300 outline-none rounded-xl focus:ring-2 focus:ring-primary"
-                />
+              <div class="field">
+                <label for="lastname">Nom</label>
+                <input type="text" id="lastname" name="lastname" required autocomplete="family-name" />
               </div>
             </div>
 
-            <div class="grid gap-6 md:grid-cols-2">
-              <div>
-                <label class="block mb-2 text-sm font-bold">Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  required
-                  class="w-full p-3 border border-gray-300 outline-none rounded-xl focus:ring-2 focus:ring-primary"
-                />
+            <div class="form-row">
+              <div class="field">
+                <label for="adh-email">E-mail</label>
+                <input type="email" id="adh-email" name="email" required autocomplete="email" />
               </div>
-              <div>
-                <label class="block mb-2 text-sm font-bold">Téléphone</label>
-                <input
-                  type="tel"
-                  name="phone"
-                  class="w-full p-3 border border-gray-300 outline-none rounded-xl focus:ring-2 focus:ring-primary"
-                />
+              <div class="field">
+                <label for="adh-phone">Téléphone</label>
+                <input type="tel" id="adh-phone" name="phone" autocomplete="tel" />
               </div>
             </div>
 
-            <div>
-              <label class="block mb-2 text-sm font-bold">Adresse postale complète</label>
-              <textarea
-                name="address"
-                rows="2"
-                class="w-full p-3 border border-gray-300 outline-none rounded-xl focus:ring-2 focus:ring-primary"
-              ></textarea>
+            <div class="field">
+              <label for="address">Adresse postale complète</label>
+              <textarea id="address" name="address" rows="2" autocomplete="street-address"></textarea>
             </div>
 
-            <div class="grid gap-6 md:grid-cols-2">
-              <div>
-                <label class="block mb-2 text-sm font-bold">Votre situation</label>
-                <select
-                  name="status"
-                  class="w-full p-3 border border-gray-300 outline-none rounded-xl"
-                >
+            <div class="form-row">
+              <div class="field">
+                <label for="status">Votre situation</label>
+                <select id="status" name="status">
                   <option value="salarie">Salarié secteur privé/public</option>
                   <option value="retraite">Retraité</option>
                   <option value="etudiant">Étudiant / Lycéen</option>
@@ -104,12 +78,9 @@ const netlifyFormAttrs: Record<string, string | boolean> = {
                   <option value="autre">Autre</option>
                 </select>
               </div>
-              <div>
-                <label class="block mb-2 text-sm font-bold">Votre logement</label>
-                <select
-                  name="housing"
-                  class="w-full p-3 border border-gray-300 outline-none rounded-xl"
-                >
+              <div class="field">
+                <label for="housing">Votre logement</label>
+                <select id="housing" name="housing">
                   <option value="locataire-hlm">Locataire HLM</option>
                   <option value="locataire-prive">Locataire parc privé</option>
                   <option value="proprietaire">Propriétaire</option>
@@ -117,107 +88,114 @@ const netlifyFormAttrs: Record<string, string | boolean> = {
               </div>
             </div>
 
-            <div class="flex items-start mb-2">
-              <div class="flex items-center h-5">
-                <input
-                  id="rgpd-adhesion"
-                  name="rgpd_consent"
-                  type="checkbox"
-                  required
-                  class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary"
-                />
-              </div>
-              <label for="rgpd-adhesion" class="ml-3 text-sm text-gray-600">
+            <div class="check">
+              <input id="rgpd-adhesion" name="rgpd_consent" type="checkbox" required />
+              <label for="rgpd-adhesion">
                 J'accepte que mes données soient traitées par l'AFOC 34 dans le cadre de ma demande
                 d'adhésion.
-                <a href="/politique-confidentialite" class="text-primary hover:underline"
-                  >Voir notre politique de confidentialité</a
-                >.
+                {' '}<a href="/politique-confidentialite">Voir notre politique de confidentialité</a>.
               </label>
             </div>
 
             <div data-netlify-recaptcha="true"></div>
 
-            <button
-              type="submit"
-              data-umami-event="adhesion-envoi"
-              class="w-full py-4 font-bold text-white transition-all transform shadow-lg bg-accent hover:bg-secondary rounded-xl hover:-translate-y-1"
-            >
-              Valider mon adhésion
+            <button type="submit" class="button" data-umami-event="adhesion-envoi">
+              Valider mon adhésion <span aria-hidden="true">↗</span>
             </button>
           </form>
         </div>
 
-        <div class="space-y-6">
-          <div class="p-8 text-white shadow-lg bg-[var(--color-bleu)] rounded-3xl">
-            <h3 class="mb-4 text-xl font-bold">Pourquoi nous rejoindre ?</h3>
-            <ul class="space-y-4 text-sm">
-              <li class="flex items-start gap-2">
-                <span class="text-lg text-[var(--color-rouge)]">✓</span>
-                <span>Traitement prioritaire de vos litiges.</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="text-lg text-[var(--color-rouge)]">✓</span>
-                <span>Accès à nos dossiers d'expertise Logement & Consommation.</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="text-lg text-[var(--color-rouge)]">✓</span>
-                <span>Soutien à une association indépendante de défense des citoyens.</span>
-              </li>
-            </ul>
+        <aside class="adhesion-aside">
+          <div class="why">
+            <h2>Pourquoi nous rejoindre ?</h2>
+            <ul>{benefits.map((item) => <li>{item}</li>)}</ul>
           </div>
-        </div>
+          <div class="card">
+            <p class="aside-label">Après l'envoi</p>
+            <p class="aside-title">Un membre vous contactera.</p>
+            <p>
+              Remplissez le formulaire : un membre de l'AFOC 34 vous contacte après réception de votre
+              demande.
+            </p>
+          </div>
+          <div class="card">
+            <p class="aside-label">Vous préférez appeler ?</p>
+            <a class="aside-phone" href={telHref(phone)} {...track('telephone', 'adhesion')}>
+              {phone}
+            </a>
+            <p class="aside-hours">Du lundi au vendredi, {phoneHours}.</p>
+          </div>
+        </aside>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 </Layout>
 
 <style>
-  .page-hero {
-    background-color: var(--color-bleu);
-    padding: 4rem 1.5rem 3rem;
-    position: relative;
-    overflow: hidden;
+  .adhesion-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.45fr) minmax(0, 0.85fr);
+    gap: clamp(24px, 4vw, 48px);
+    align-items: start;
   }
-  .page-hero::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 300px;
-    height: 300px;
-    background: var(--color-rouge);
-    opacity: 0.08;
-    border-radius: 50%;
-    transform: translate(30%, 40%);
+  .adhesion-aside {
+    display: grid;
+    gap: 16px;
   }
-  .page-hero-inner {
-    max-width: 800px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
+  .why {
+    background: var(--color-teal);
+    color: var(--color-white);
+    padding: 28px 26px;
   }
-  .page-hero-label {
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--color-rouge);
-    margin-bottom: 0.75rem;
+  .why h2 {
+    font: 500 26px/1.15 var(--font-display);
+    letter-spacing: -0.02em;
+    margin: 0 0 14px;
+    color: var(--color-white);
   }
-  .page-hero h1 {
-    font-family: var(--font-serif);
-    font-size: clamp(2.2rem, 5vw, 3.5rem);
-    line-height: 1.1;
-    color: white;
-    margin-bottom: 1rem;
-    font-weight: 400;
-  }
-  .page-hero-sub {
-    color: rgba(255, 255, 255, 0.75);
-    font-size: 1.05rem;
-    max-width: 560px;
-    line-height: 1.7;
+  .why ul {
+    list-style: none;
     margin: 0;
+    padding: 0;
+  }
+  .why li {
+    padding: 11px 0;
+    border-top: 1px solid color-mix(in srgb, var(--color-white) 25%, transparent);
+    font-size: 16px;
+  }
+  .aside-label {
+    margin: 0 0 8px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+  .aside-title {
+    font: 500 24px/1.2 var(--font-display);
+    color: var(--color-teal);
+    margin: 0 0 8px;
+  }
+  .card p:last-child {
+    margin-bottom: 0;
+  }
+  .aside-phone {
+    display: inline-block;
+    font: 700 24px/1.2 var(--font-text);
+    color: var(--color-teal);
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-link-line);
+  }
+  .aside-phone:hover {
+    color: var(--color-coral);
+    border-color: var(--color-coral);
+  }
+  .aside-hours {
+    margin: 8px 0 0;
+  }
+  @media (max-width: 900px) {
+    .adhesion-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

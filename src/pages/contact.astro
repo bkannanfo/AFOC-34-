@@ -1,139 +1,182 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/Page/PageHero.astro';
 import ContactForm from '../components/UI/ContactForm.astro';
 import AideJuridique from '../components/UI/AideJuridique.astro';
 import siteData from '../data/site.json';
 import { track, telHref } from '../data/tracking.js';
+import '../styles/refonte.css';
+
 const contact = siteData.contact;
-const fullAddress = contact.details.address;
-const mapUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(fullAddress);
+const { address, phone, phoneHours, email, access } = contact.details;
+const mapUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(address);
 ---
 
 <Layout title={contact.title} description={contact.description}>
-  <div class="page-hero">
-    <div class="page-hero-inner">
-      <p class="page-hero-label">Nous joindre</p>
-      <h1>{contact.title}</h1>
-      <p class="page-hero-sub">{contact.description}</p>
-    </div>
-  </div>
+  <div class="refonte">
+    <PageHero eyebrow="Nous joindre" title={contact.title} intro={contact.description} />
 
-  <section class="container px-6 py-20 mx-auto">
-    <div class="grid gap-16 lg:grid-cols-2">
-      <div class="space-y-8">
-        <div class="grid gap-6 md:grid-cols-2">
-          <div class="p-6 border border-gray-100 shadow-sm bg-gray-50 rounded-2xl">
-            <h2 class="mb-2 text-lg font-bold text-secondary">📍 Notre Siège</h2>
-            <p class="text-sm leading-relaxed text-gray-700">{contact.details.address}</p>
-          </div>
-          <div class="p-6 border border-gray-100 shadow-sm bg-gray-50 rounded-2xl">
-            <h2 class="mb-2 text-lg font-bold text-secondary">📞 Nous joindre</h2>
-            <p class="text-sm text-gray-700"><strong>Tél :</strong> {contact.details.phone}</p>
-            <p class="text-sm text-gray-700"><strong>Email :</strong> {contact.details.email}</p>
-          </div>
-        </div>
-        <div class="space-y-6">
-          <div
-            class="overflow-hidden bg-gray-200 border-2 border-gray-100 shadow-lg rounded-2xl h-80"
-          >
-            <img
-              src="https://static-maps.yandex.ru/1.x/?lang=fr_FR&ll=3.8965,43.6015&z=15&l=map&size=650,350&pt=3.8965,43.6015,pm2rdm"
-              width="650"
-              height="350"
-              loading="lazy"
-              alt="Plan d'accès AFOC 34"
-              class="object-cover w-full h-full"
-            />
-          </div>
-          <div class="flex flex-col items-center gap-4">
-            <a
-              href={mapUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-3 px-8 py-4 font-bold text-white transition-all rounded-full shadow-xl bg-primary hover:bg-secondary hover:-translate-y-1"
-            >
-              <span>📍 Cliquez pour ouvrir l'itinéraire</span>
+    <section class="section">
+      <div class="site-wrap contact-grid">
+          <div class="call">
+            <p class="call-label">Vous préférez appeler ?</p>
+            <a class="call-phone" href={telHref(phone)} {...track('telephone', 'page-contact')}>
+              {phone}
             </a>
-            <p class="max-w-xs text-xs italic text-center text-gray-500">
-              L'itinéraire s'ouvrira directement dans votre application GPS (Google Maps, Waze,
-              Apple Maps).
+            <p class="call-hours">Du lundi au vendredi, {phoneHours}.</p>
+          </div>
+
+          <div class="card card-accent form-card">
+            <h2>Envoyer un message</h2>
+            <ContactForm />
+          </div>
+
+          <div class="card siege">
+            <h2>Notre siège</h2>
+            <address>{address}</address>
+            <p class="contact-line">
+              <span>E-mail</span>
+              <a href={`mailto:${email}`}>{email}</a>
+            </p>
+            <p class="contact-line">
+              <span>Accès</span>
+              {access}
+            </p>
+            <div class="map">
+              <img
+                src="https://static-maps.yandex.ru/1.x/?lang=fr_FR&ll=3.8965,43.6015&z=15&l=map&size=650,350&pt=3.8965,43.6015,pm2rdm"
+                width="650"
+                height="350"
+                loading="lazy"
+                alt="Plan d'accès AFOC 34"
+              />
+            </div>
+            <a class="text-link" href={mapUrl} target="_blank" rel="noopener noreferrer">
+              Ouvrir l'itinéraire<span class="visually-hidden"> (nouvel onglet)</span>
+              <span aria-hidden="true">↗</span>
+            </a>
+            <p class="map-note">
+              L'itinéraire s'ouvrira directement dans votre application GPS (Google Maps, Waze, Apple
+              Maps).
             </p>
           </div>
-        </div>
-        <div class="p-6 border-l-4 bg-blue-50 rounded-2xl border-accent">
-          <h2 class="mb-2 text-lg font-bold text-accent">🚍 Accès & Transports</h2>
-          <p class="text-sm leading-relaxed text-gray-700">{contact.details.access}</p>
-        </div>
       </div>
-      <div class="relative">
-        <div class="sticky top-8">
-          <div class="p-6 mb-8 border-l-4 bg-gray-50 rounded-2xl border-[var(--color-teal)]">
-            <h2 class="mb-2 text-lg font-bold text-[var(--color-teal)]">Vous préférez appeler ?</h2>
-            <p class="text-2xl font-bold">
-              <a
-                href={telHref(contact.details.phone)}
-                class="text-[var(--color-teal)] underline underline-offset-4 hover:text-[var(--color-coral)]"
-                {...track('telephone', 'page-contact')}>{contact.details.phone}</a
-              >
-            </p>
-            <p class="mt-1 text-sm text-gray-700">
-              Du lundi au vendredi, {contact.details.phoneHours}.
-            </p>
-          </div>
-          <h2 class="mb-6 text-2xl italic font-bold text-primary">Envoyer un message</h2>
-          <AideJuridique />
-          <ContactForm />
-        </div>
+    </section>
+
+    <section class="section aide-section">
+      <div class="site-wrap aide-wrap">
+        <AideJuridique position="page-contact" />
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 </Layout>
 
 <style>
-  .page-hero {
-    position: relative;
-    overflow: hidden;
-    background: #1b5162;
-    padding: 5rem 1.5rem 4rem;
+  .contact-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 16px clamp(24px, 4vw, 48px);
+    grid-template-areas:
+      'call form'
+      'siege form';
+    grid-template-rows: auto 1fr;
+    align-items: start;
   }
-  .page-hero::before {
-    content: '';
-    position: absolute;
-    right: -120px;
-    top: -120px;
-    width: 320px;
-    height: 320px;
-    background: var(--color-rouge);
-    opacity: 0.08;
-    border-radius: 50%;
+  .call {
+    grid-area: call;
   }
-  .page-hero-inner {
-    max-width: 760px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
+  .siege {
+    grid-area: siege;
   }
-  .page-hero-label {
-    color: var(--color-rouge);
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    font-size: 0.75rem;
+  .form-card {
+    grid-area: form;
+  }
+  .call {
+    background: var(--color-teal);
+    color: var(--color-white);
+    padding: 28px 26px;
+  }
+  .call-label {
+    margin: 0 0 8px;
+    font-size: 12px;
     font-weight: 700;
-    margin-bottom: 1rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-on-teal);
   }
-  .page-hero h1 {
-    font-family: var(--font-serif);
-    font-size: clamp(2.2rem, 5vw, 3.5rem);
-    line-height: 1.1;
-    color: white;
-    margin-bottom: 1rem;
-    font-weight: 400;
+  .call-phone {
+    display: inline-block;
+    font: 700 clamp(28px, 3vw, 34px) / 1.2 var(--font-text);
+    letter-spacing: -0.02em;
+    color: var(--color-white);
+    text-decoration: none;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-white) 45%, transparent);
   }
-  .page-hero-sub {
-    color: rgba(255, 255, 255, 0.78);
-    font-size: 1.05rem;
-    line-height: 1.8;
-    max-width: 620px;
+  .call-phone:hover {
+    border-color: var(--color-white);
+  }
+  .call-hours {
+    margin: 10px 0 0;
+    font-size: 15px;
+    color: var(--color-on-teal);
+  }
+  address {
+    font-style: normal;
+    font-size: 16px;
+    color: var(--color-ink-soft);
+    margin-bottom: 14px;
+  }
+  .contact-line {
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    gap: 12px;
+    padding: 10px 0;
+    border-top: 1px solid var(--color-line);
     margin: 0;
+  }
+  .contact-line span {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    padding-top: 3px;
+  }
+  .contact-line a {
+    color: var(--color-teal);
+    font-weight: 700;
+    overflow-wrap: anywhere;
+  }
+  .map {
+    margin: 14px 0 16px;
+    border: 1px solid var(--color-line);
+    background: var(--color-pale);
+    aspect-ratio: 650 / 350;
+  }
+  .map img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .map-note {
+    margin: 10px 0 0;
+    font-size: 14px;
+  }
+  .form-card h2 {
+    margin-bottom: 20px;
+  }
+  .aide-section {
+    padding-top: 0;
+  }
+  .aide-wrap {
+    max-width: 860px;
+  }
+  @media (max-width: 900px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+      grid-template-areas: 'call' 'form' 'siege';
+      grid-template-rows: none;
+    }
   }
 </style>
