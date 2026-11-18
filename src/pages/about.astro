@@ -1,96 +1,133 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/Page/PageHero.astro';
 import siteData from '../data/site.json';
-const title = siteData.about.title;
-const description = siteData.about.description;
-const content = siteData.about.content;
-const hero = siteData.hero;
-import Button from '../components/UI/Button.astro';
+import { track } from '../data/tracking.js';
+import '../styles/refonte.css';
+
+const { title, description, content } = siteData.about;
+const { cta } = siteData.hero;
 ---
 
 <Layout title={title} description={description}>
-  <div class="page-hero">
-    <div class="page-hero-inner">
-      <p class="page-hero-label">Qui sommes-nous</p>
-      <h1>{title}</h1>
-      <p class="page-hero-sub">{description}</p>
-    </div>
-  </div>
+  <div class="refonte">
+    <PageHero eyebrow="Qui sommes-nous" title={title} intro={description} />
 
-  <section class="py-16 bg-white">
-    <div class="max-w-5xl px-6 mx-auto lg:px-12">
-      <div class="grid gap-8">
-        {
-          content.map((section) => (
-            <article class="p-8 transition border border-gray-100 shadow-sm bg-gray-50 rounded-2xl hover:shadow-md">
-              <h2 class="mb-4 text-2xl font-semibold" style="color: #1b5162;">
-                {section.sectionTitle}
-              </h2>
-              <p class="text-lg leading-relaxed text-gray-700">{section.text}</p>
-            </article>
-          ))
-        }
+    <section class="section" aria-label="Présentation de l'association">
+      <div class="site-wrap">
+        <div class="about-list">
+          {
+            content.map((section, index) => (
+              <article class="about-item">
+                <span class="about-num" aria-hidden="true">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                <h2>{section.sectionTitle}</h2>
+                <p>{section.text}</p>
+              </article>
+            ))
+          }
+        </div>
       </div>
-      <div class="p-10 mt-16 text-white bg-[var(--color-bleu)] rounded-2xl">
-        <h2 class="mb-4 text-3xl font-bold">Besoin d'aide ou d'informations ?</h2>
-        <p class="mb-6 text-lg leading-relaxed text-gray-100">
-          L'AFOC 34 accompagne les consommateurs et les locataires dans leurs démarches, leurs
-          litiges et la défense de leurs droits au quotidien.
-        </p>
-        <Button href={hero.cta.url} variant="accent" size="lg">
-          {hero.cta.label}
-        </Button>
+    </section>
+
+    <section class="join" aria-labelledby="about-cta-title">
+      <div class="site-wrap join-inner">
+        <div>
+          <p class="eyebrow">Nous joindre</p>
+          <h2 id="about-cta-title">Besoin d'aide ou d'informations&nbsp;?</h2>
+          <p class="join-text">
+            L'AFOC 34 accompagne les consommateurs et les locataires dans leurs démarches, leurs
+            litiges et la défense de leurs droits au quotidien.
+          </p>
+        </div>
+        <a class="button button-light" href={cta.url} {...track('contact', 'about')}>
+          {cta.label} <span aria-hidden="true">↗</span>
+        </a>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 </Layout>
 
 <style>
-  .page-hero {
-    background-color: var(--color-bleu);
-    padding: 4rem 1.5rem 3rem;
-    position: relative;
-    overflow: hidden;
+  .about-list {
+    border-top: 1px solid var(--color-line);
   }
-  .page-hero::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 300px;
-    height: 300px;
-    background: var(--color-rouge);
-    opacity: 0.08;
-    border-radius: 50%;
-    transform: translate(30%, 40%);
+  .about-item {
+    display: grid;
+    grid-template-columns: 40px minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: 24px;
+    align-items: baseline;
+    padding: 30px 0;
+    border-bottom: 1px solid var(--color-line);
   }
-  .page-hero-inner {
-    max-width: 800px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
+  .about-num {
+    font: italic 16px/1 var(--font-display);
+    color: var(--color-coral);
   }
-  .page-hero-label {
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--color-rouge);
-    margin-bottom: 0.75rem;
-  }
-  .page-hero h1 {
-    font-family: var(--font-serif);
-    font-size: clamp(2.2rem, 5vw, 3.5rem);
-    line-height: 1.1;
-    color: white;
-    margin-bottom: 1rem;
-    font-weight: 400;
-  }
-  .page-hero-sub {
-    color: rgba(255, 255, 255, 0.75);
-    font-size: 1.05rem;
-    max-width: 560px;
-    line-height: 1.7;
+  .about-item h2 {
+    font: 500 clamp(26px, 2.6vw, 32px) / 1.15 var(--font-display);
+    letter-spacing: -0.025em;
     margin: 0;
+  }
+  .about-item p {
+    font-size: 17px;
+    line-height: 1.75;
+    color: var(--color-ink-soft);
+    margin: 0;
+  }
+  .join {
+    background: var(--color-teal);
+    color: var(--color-white);
+    padding: 70px 0;
+  }
+  .join-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px 48px;
+    flex-wrap: wrap;
+  }
+  .join .eyebrow {
+    margin: 0;
+    color: var(--color-on-teal);
+  }
+  .join .eyebrow::before {
+    background: var(--color-coral-light);
+  }
+  .join h2 {
+    font: 500 clamp(32px, 3.6vw, 44px) / 1.08 var(--font-display);
+    letter-spacing: -0.04em;
+    margin: 16px 0 14px;
+    color: var(--color-white);
+  }
+  .join-text {
+    font-size: 16px;
+    color: var(--color-on-teal);
+    max-width: 560px;
+    margin: 0;
+  }
+  .button-light {
+    background: var(--color-white);
+    color: var(--color-teal) !important;
+    border-color: var(--color-white);
+  }
+  .button-light:hover {
+    background: var(--color-teal-tint);
+  }
+  @media (max-width: 900px) {
+    .about-item {
+      grid-template-columns: 40px minmax(0, 1fr);
+      gap: 10px 16px;
+    }
+    .about-item p {
+      grid-column: 2;
+    }
+  }
+  @media (max-width: 560px) {
+    .button-light {
+      width: 100%;
+      white-space: normal;
+    }
   }
 </style>
