@@ -1,16 +1,16 @@
-/* Primitives partagées par les sections de l'accueil */
-.home {
+/* Primitives partagées par les pages de la refonte (accueil, missions, association, adhésion, contact) */
+.refonte {
   background: var(--color-paper);
   color: var(--color-ink);
   font: 16px/1.65 var(--font-text);
 }
-.home h1,
-.home h2,
-.home h3,
-.home p {
+.refonte h1,
+.refonte h2,
+.refonte h3,
+.refonte p {
   margin-top: 0;
 }
-.home a {
+.refonte a {
   color: inherit;
 }
 .eyebrow {
@@ -99,4 +99,100 @@
   .section {
     padding: 68px 0;
   }
+}
+
+/* Cartes et formulaires des pages intérieures */
+.card {
+  background: var(--color-white);
+  border: 1px solid var(--color-line);
+  padding: 28px 26px;
+}
+.card-accent {
+  border-top: 3px solid var(--color-teal);
+}
+.card h2,
+.card h3 {
+  font: 500 26px/1.15 var(--font-display);
+  letter-spacing: -0.02em;
+  margin: 0 0 10px;
+}
+.card p {
+  font-size: 15px;
+  color: var(--color-muted);
+}
+.form {
+  display: grid;
+  gap: 20px;
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.field label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-ink);
+}
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 0;
+  background: var(--color-white);
+  color: var(--color-ink);
+  font: 16px/1.5 var(--font-text);
+}
+.field textarea {
+  resize: vertical;
+}
+.field input:focus-visible,
+.field select:focus-visible,
+.field textarea:focus-visible,
+.check input:focus-visible {
+  outline: 3px solid var(--color-coral);
+  outline-offset: 2px;
+  border-color: var(--color-teal);
+}
+.check {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--color-ink-soft);
+}
+.check input {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  margin-top: 3px;
+  accent-color: var(--color-teal);
+}
+.check a {
+  color: var(--color-teal);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.form .button {
+  width: 100%;
+  cursor: pointer;
+  font-family: inherit;
+}
+@media (max-width: 720px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  .card {
+    padding: 24px 20px;
+  }
+}
+
+/* Fond papier jusqu'en bas sur les pages courtes */
+body:has(.refonte) {
+  background: var(--color-paper);
 }

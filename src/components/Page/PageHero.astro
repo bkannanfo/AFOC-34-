@@ -1,0 +1,58 @@
+---
+// En-tête des pages intérieures, même direction que le hero de l'accueil.
+const { eyebrow, title, intro } = Astro.props;
+---
+
+<section class="page-hero" aria-labelledby="page-title">
+  <div class="page-hero-mark" aria-hidden="true">34</div>
+  <div class="site-wrap page-hero-inner">
+    <p class="eyebrow">{eyebrow}</p>
+    <h1 id="page-title">{title}</h1>
+    {intro && <p class="page-hero-intro">{intro}</p>}
+    <slot />
+  </div>
+</section>
+
+<style>
+  .page-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 64px 0 60px;
+    background: var(--color-mist);
+    border-bottom: 1px solid var(--color-line);
+  }
+  .page-hero-mark {
+    position: absolute;
+    right: -0.02em;
+    top: -0.16em;
+    font: 700 clamp(200px, 26vw, 340px) / 1 var(--font-display);
+    letter-spacing: -0.1em;
+    color: color-mix(in srgb, var(--color-teal) 5%, transparent);
+    pointer-events: none;
+    user-select: none;
+  }
+  .page-hero-inner {
+    position: relative;
+  }
+  .eyebrow {
+    margin: 0;
+  }
+  h1 {
+    font: 500 clamp(40px, 5vw, 64px) / 1.04 var(--font-display);
+    letter-spacing: -0.045em;
+    max-width: 760px;
+    margin: 18px 0 16px;
+  }
+  .page-hero-intro {
+    font-size: 18px;
+    color: var(--color-ink-soft);
+    max-width: 620px;
+    line-height: 1.7;
+    margin: 0;
+  }
+  @media (max-width: 720px) {
+    .page-hero {
+      padding: 44px 0 40px;
+    }
+  }
+</style>
