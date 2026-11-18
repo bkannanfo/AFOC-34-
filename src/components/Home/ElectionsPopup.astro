@@ -1,0 +1,212 @@
+---
+import { Image } from 'astro:assets';
+import Arrow from '../UI/Arrow.astro';
+import poster from '../../assets/elections-hlm-2026.jpg';
+import { electionsPopup as popup } from '../../data/popups.js';
+---
+
+<dialog
+  id="popup-elections"
+  class="popup"
+  aria-labelledby="popup-elections-title"
+  data-id={popup.id}
+  data-until={popup.until}
+>
+  <div class="popup-inner">
+    <button type="button" class="popup-close" data-popup-close aria-label="Fermer le message">
+      <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 4l12 12M16 4L4 16"></path></svg>
+    </button>
+
+    <div class="popup-visual">
+      <Image
+        src={poster}
+        alt={popup.imageAlt}
+        width={300}
+        height={426}
+        densities={[1, 2]}
+        format="webp"
+        loading="lazy"
+      />
+    </div>
+
+    <div class="popup-body">
+      <p class="eyebrow">{popup.eyebrow}</p>
+      <h2 id="popup-elections-title" tabindex="-1">{popup.title}</h2>
+      <p class="popup-text">{popup.text}</p>
+      <ul class="popup-points">
+        {popup.points.map((point) => <li>{point}</li>)}
+      </ul>
+      <div class="popup-actions">
+        <a class="button" href={popup.cta.href}>
+          {popup.cta.label}
+          <Arrow dir="right" />
+        </a>
+        <button type="button" class="popup-later" data-popup-close>Fermer</button>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  // Affiché une fois par visite (sessionStorage, sans cookie), jusqu'à la date de fin.
+  const dialog = document.getElementById('popup-elections');
+  if (dialog && typeof dialog.showModal === 'function') {
+    const key = 'popup-' + dialog.dataset.id;
+    const until = new Date(dialog.dataset.until + 'T23:59:59');
+    let dismissed = false;
+    try {
+      dismissed = sessionStorage.getItem(key) === '1';
+    } catch {
+      dismissed = false;
+    }
+    const remember = () => {
+      try {
+        sessionStorage.setItem(key, '1');
+      } catch {
+        /* stockage indisponible : le message pourra réapparaître */
+      }
+    };
+    dialog.addEventListener('close', remember);
+    dialog.querySelectorAll('[data-popup-close]').forEach((button) => {
+      button.addEventListener('click', () => dialog.close());
+    });
+    // Clic sur le fond : fermeture
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+    if (!dismissed && new Date() <= until) {
+      // Sur grand écran, l'affiche est chargée juste avant l'ouverture (jamais sur mobile).
+      const poster = dialog.querySelector('img');
+      if (poster && window.matchMedia('(min-width: 721px)').matches) poster.loading = 'eager';
+      dialog.showModal();
+      // Le focus démarre sur le titre : le message est lu avant les boutons.
+      dialog.querySelector('#popup-elections-title')?.focus();
+    }
+  }
+</script>
+
+<style>
+  .popup {
+    /* Centrage natif d'une boîte modale (annulé par la remise à zéro des marges du site) */
+    margin: auto;
+    padding: 0;
+    border: 0;
+    border-top: 3px solid var(--color-teal);
+    background: var(--color-white);
+    color: var(--color-ink);
+    width: min(780px, calc(100% - 40px));
+    max-height: calc(100% - 40px);
+    overflow: auto;
+    font-family: var(--font-text);
+  }
+  .popup::backdrop {
+    background: color-mix(in srgb, var(--color-ink) 62%, transparent);
+  }
+  .popup-inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: 250px minmax(0, 1fr);
+  }
+  .popup-visual {
+    background: var(--color-pale);
+    line-height: 0;
+  }
+  .popup-visual :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .popup-body {
+    padding: 34px 32px 30px;
+  }
+  .eyebrow {
+    margin: 0;
+  }
+  h2 {
+    font: 500 clamp(26px, 3vw, 32px) / 1.15 var(--font-display);
+    letter-spacing: -0.03em;
+    margin: 14px 0 12px;
+  }
+  h2:focus {
+    outline: none;
+  }
+  .popup-text {
+    margin: 0 0 18px;
+    font-size: 15px;
+    color: var(--color-muted);
+  }
+  .popup-points {
+    list-style: none;
+    margin: 0 0 24px;
+    padding: 0;
+    border-top: 1px solid var(--color-line);
+  }
+  .popup-points li {
+    padding: 9px 0;
+    border-bottom: 1px solid var(--color-line);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--color-ink-soft);
+  }
+  .popup-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px 24px;
+  }
+  .popup-later {
+    background: none;
+    border: 0;
+    border-bottom: 1px solid var(--color-link-line);
+    padding: 0 0 2px;
+    font: 700 15px/1.4 var(--font-text);
+    color: var(--color-ink);
+    cursor: pointer;
+  }
+  .popup-later:hover {
+    color: var(--color-coral);
+    border-color: var(--color-coral);
+  }
+  .popup-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 1;
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    background: var(--color-white);
+    border: 1px solid var(--color-border-strong);
+    color: var(--color-ink);
+    cursor: pointer;
+  }
+  .popup-close:hover {
+    background: var(--color-teal-tint);
+  }
+  .popup-close svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: square;
+  }
+  @media (max-width: 720px) {
+    /* Compact sur mobile : titre, date et bouton seulement (ni affiche, ni liste) */
+    .popup-inner {
+      grid-template-columns: 1fr;
+    }
+    .popup-visual,
+    .popup-points {
+      display: none;
+    }
+    .popup-body {
+      padding: 52px 20px 22px;
+    }
+    .popup-text {
+      margin-bottom: 20px;
+    }
+  }
+</style>

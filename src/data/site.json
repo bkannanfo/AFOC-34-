@@ -227,7 +227,10 @@
       "content": [
         {
           "sectionTitle": "Cookies",
-          "text": "Le site afoc34.fr n'utilise pas de cookies publicitaires et ne dépose pas de cookies destinés à suivre les visiteurs à des fins de publicité personnalisée."
+          "text": [
+            "Le site afoc34.fr n'utilise pas de cookies publicitaires et ne dépose pas de cookies destinés à suivre les visiteurs à des fins de publicité personnalisée.",
+            "Quand un message d'information s'affiche à l'ouverture du site, votre navigateur mémorise que vous l'avez fermé, le temps de la visite seulement (stockage de session). Cette information reste sur votre appareil, ne contient aucune donnée personnelle et n'est jamais transmise."
+          ]
         },
         {
           "sectionTitle": "Mesure d'audience avec Umami",
@@ -256,7 +259,7 @@
         {
           "sectionTitle": "Évolution du site",
           "text": "Si de nouveaux outils nécessitant l'utilisation de cookies ou de traceurs soumis au consentement sont ajoutés au site, la présente politique sera mise à jour et les mesures nécessaires seront mises en place conformément à la réglementation applicable.",
-          "after": "Dernière mise à jour : 18/11/2026"
+          "after": "Dernière mise à jour : 19/11/2026"
         }
       ]
     }
