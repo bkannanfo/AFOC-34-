@@ -57,6 +57,9 @@ const { eyebrow, title, mark } = Astro.props;
   .message-text :global(p) {
     margin: 0;
   }
+  .message-text :global(p + p) {
+    margin-top: 12px;
+  }
   .message-actions {
     display: flex;
     align-items: center;
