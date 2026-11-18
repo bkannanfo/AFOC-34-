@@ -122,8 +122,7 @@
       { "name": "Mentions légales", "url": "/mentions-legales" },
       { "name": "Protection des données", "url": "/politique-confidentialite" },
       { "name": "Cookies", "url": "/politique-cookies" },
-      { "name": "Plan du site", "url": "/plan-du-site" },
-      { "name": "Accessibilité", "url": "/accessibilite" }
+      { "name": "Plan du site", "url": "/plan-du-site" }
     ]
   },
   "legal": {
@@ -258,39 +257,6 @@
           "sectionTitle": "Évolution du site",
           "text": "Si de nouveaux outils nécessitant l'utilisation de cookies ou de traceurs soumis au consentement sont ajoutés au site, la présente politique sera mise à jour et les mesures nécessaires seront mises en place conformément à la réglementation applicable.",
           "after": "Dernière mise à jour : 18/11/2026"
-        }
-      ]
-    },
-    "accessibilite": {
-      "title": "Déclaration d'accessibilité",
-      "content": [
-        {
-          "sectionTitle": "Engagement",
-          "text": "L'AFOC de l'Hérault s'engage à rendre son site internet accessible. Cette déclaration s'applique au site afoc34.fr."
-        },
-        {
-          "sectionTitle": "État de conformité",
-          "text": [
-            "Le site afoc34.fr est non conforme au référentiel général d'amélioration de l'accessibilité (RGAA), car aucun audit de conformité complet n'a encore été réalisé.",
-            "Des contrôles ont été menés le 18/11/2026. Analyse automatique avec l'outil axe-core sur les 26 pages, à trois largeurs d'écran : aucune anomalie détectée. Calcul des contrastes de 1 830 textes sur 20 pages : rapport minimal de 5,9 pour 1. Parcours au clavier de la page Contact, avec contour de focus visible, et vérification qu'aucune règle de style ne supprime ce contour. Affichage de 320 à 1280 pixels sans défilement horizontal. Lecture de 12 pages avec les espacements de texte renforcés.",
-            "Ces contrôles ne remplacent pas un audit complet du RGAA par un auditeur, ni un test avec un lecteur d'écran, qui restent à réaliser."
-          ]
-        },
-        {
-          "sectionTitle": "Technologies utilisées",
-          "text": "HTML, CSS et JavaScript."
-        },
-        {
-          "sectionTitle": "Établissement de cette déclaration",
-          "text": "Cette déclaration a été établie le 18/11/2026."
-        },
-        {
-          "sectionTitle": "Retour d'information et contact",
-          "text": "Si vous n'arrivez pas à accéder à un contenu ou à un service, vous pouvez nous contacter pour être orienté vers une alternative accessible ou obtenir le contenu sous une autre forme : par courriel à afoc34@gmail.com, par téléphone au 06 80 94 18 13, ou par courrier à l'AFOC de l'Hérault, Maison des Syndicats, 474 Allée Henri II de Montmorency, 34000 Montpellier."
-        },
-        {
-          "sectionTitle": "Voies de recours",
-          "text": "Si vous constatez un défaut d'accessibilité vous empêchant d'accéder à un contenu ou à un service, que vous nous l'avez signalé et que vous n'avez pas obtenu de réponse satisfaisante, vous pouvez écrire au Défenseur des droits (https://formulaire.defenseurdesdroits.fr) ou contacter le délégué du Défenseur des droits dans votre région."
         }
       ]
     }
