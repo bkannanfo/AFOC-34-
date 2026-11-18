@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import ContactForm from '../components/UI/ContactForm.astro';
 import AideJuridique from '../components/UI/AideJuridique.astro';
 import siteData from '../data/site.json';
+import { track, telHref } from '../data/tracking.js';
 const contact = siteData.contact;
 const fullAddress = contact.details.address;
 const mapUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(fullAddress);
@@ -66,6 +67,19 @@ const mapUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURICom
       </div>
       <div class="relative">
         <div class="sticky top-8">
+          <div class="p-6 mb-8 border-l-4 bg-gray-50 rounded-2xl border-[var(--color-teal)]">
+            <h2 class="mb-2 text-lg font-bold text-[var(--color-teal)]">Vous préférez appeler ?</h2>
+            <p class="text-2xl font-bold">
+              <a
+                href={telHref(contact.details.phone)}
+                class="text-[var(--color-teal)] underline underline-offset-4 hover:text-[var(--color-coral)]"
+                {...track('telephone', 'page-contact')}>{contact.details.phone}</a
+              >
+            </p>
+            <p class="mt-1 text-sm text-gray-700">
+              Du lundi au vendredi, {contact.details.phoneHours}.
+            </p>
+          </div>
           <h2 class="mb-6 text-2xl italic font-bold text-primary">Envoyer un message</h2>
           <AideJuridique />
           <ContactForm />
