@@ -8,7 +8,6 @@ import '../styles/refonte.css';
 const netlifyFormAttrs = {
   netlify: true,
   'netlify-honeypot': 'bot-field',
-  'data-netlify-recaptcha': 'true',
 };
 const { phone, phoneHours } = siteData.contact.details;
 const benefits = [
@@ -39,21 +38,22 @@ const benefits = [
             </p>
 
             <h2>Vos informations</h2>
+            <p class="form-help">Les champs marqués « obligatoire » doivent être remplis.</p>
 
             <div class="form-row">
               <div class="field">
-                <label for="firstname">Prénom</label>
+                <label for="firstname">Prénom <span class="req">(obligatoire)</span></label>
                 <input type="text" id="firstname" name="firstname" required autocomplete="given-name" />
               </div>
               <div class="field">
-                <label for="lastname">Nom</label>
+                <label for="lastname">Nom <span class="req">(obligatoire)</span></label>
                 <input type="text" id="lastname" name="lastname" required autocomplete="family-name" />
               </div>
             </div>
 
             <div class="form-row">
               <div class="field">
-                <label for="adh-email">E-mail</label>
+                <label for="adh-email">E-mail <span class="req">(obligatoire)</span></label>
                 <input type="email" id="adh-email" name="email" required autocomplete="email" />
               </div>
               <div class="field">
@@ -93,11 +93,10 @@ const benefits = [
               <label for="rgpd-adhesion">
                 J'accepte que mes données soient traitées par l'AFOC 34 dans le cadre de ma demande
                 d'adhésion.
+                <span class="req">(obligatoire)</span>
                 {' '}<a href="/politique-confidentialite">Voir notre politique de confidentialité</a>.
               </label>
             </div>
-
-            <div data-netlify-recaptcha="true"></div>
 
             <button type="submit" class="button" data-umami-event="adhesion-envoi">
               Valider mon adhésion <span aria-hidden="true">↗</span>

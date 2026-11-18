@@ -42,16 +42,7 @@ const mapUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURICom
               <span>Accès</span>
               {access}
             </p>
-            <div class="map">
-              <img
-                src="https://static-maps.yandex.ru/1.x/?lang=fr_FR&ll=3.8965,43.6015&z=15&l=map&size=650,350&pt=3.8965,43.6015,pm2rdm"
-                width="650"
-                height="350"
-                loading="lazy"
-                alt="Plan d'accès AFOC 34"
-              />
-            </div>
-            <a class="text-link" href={mapUrl} target="_blank" rel="noopener noreferrer">
+            <a class="text-link itinerary" href={mapUrl} target="_blank" rel="noopener noreferrer">
               Ouvrir l'itinéraire<span class="visually-hidden"> (nouvel onglet)</span>
               <span aria-hidden="true">↗</span>
             </a>
@@ -147,17 +138,8 @@ const mapUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURICom
     font-weight: 700;
     overflow-wrap: anywhere;
   }
-  .map {
-    margin: 14px 0 16px;
-    border: 1px solid var(--color-line);
-    background: var(--color-pale);
-    aspect-ratio: 650 / 350;
-  }
-  .map img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  .itinerary {
+    margin-top: 16px;
   }
   .map-note {
     margin: 10px 0 0;
