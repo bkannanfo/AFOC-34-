@@ -1,0 +1,92 @@
+---
+import Arrow from '../UI/Arrow.astro';
+import { electionsBanner as banner } from '../../data/popups.js';
+
+// Affiché jusqu'à la date de fin (inclus). Un petit script le retire aussi si la page reste ouverte.
+const visible = new Date() <= new Date(banner.until + 'T23:59:59');
+---
+
+{
+  visible && (
+    <section class="info-bar" aria-label="Information" data-until={banner.until}>
+      <div class="site-wrap info-inner">
+        <span class="info-label">{banner.label}</span>
+        <p class="info-text">{banner.text}</p>
+        <a class="info-link" href={banner.link.href}>
+          {banner.link.label}
+          <Arrow dir="right" />
+        </a>
+      </div>
+    </section>
+  )
+}
+
+<script>
+  // Retire le bandeau après la date de fin, même sur une page déjà chargée.
+  const bar = document.querySelector('.info-bar');
+  if (bar && new Date() > new Date(bar.dataset.until + 'T23:59:59')) bar.remove();
+</script>
+
+<style>
+  .info-bar {
+    background: var(--color-coral);
+    color: var(--color-white);
+    font-family: var(--font-text);
+  }
+  .info-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 4px 16px;
+    padding: 10px 0;
+    text-align: center;
+  }
+  .info-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border: 1px solid color-mix(in srgb, var(--color-white) 55%, transparent);
+  }
+  .info-text {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+  .info-link {
+    color: var(--color-white);
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .info-link:hover {
+    text-decoration-thickness: 2px;
+  }
+  /* Le contour de focus du site est corail : on le passe en blanc sur ce fond */
+  .info-bar a:focus-visible {
+    outline-color: var(--color-white);
+  }
+  /* Compact sur mobile : message et lien sur un même bloc de texte, sans l'étiquette */
+  @media (max-width: 560px) {
+    .info-inner {
+      display: block;
+      padding: 9px 0 10px;
+    }
+    .info-label {
+      display: none;
+    }
+    .info-text {
+      display: inline;
+      font-size: 15px;
+      margin-right: 8px;
+    }
+    .info-link {
+      display: inline-block;
+      font-size: 14px;
+    }
+  }
+</style>

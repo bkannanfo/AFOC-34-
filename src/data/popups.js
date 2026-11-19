@@ -20,3 +20,15 @@ export const electionsPopup = {
   imageAlt:
     'Affiche de campagne : Élections Hlm 2026, pour un logement digne et accessible, votez AFOC.',
 };
+
+// Bandeau d'information affiché tout en haut de chaque page.
+// `until` : dernier jour d'affichage (inclus). Après cette date, il disparaît tout seul.
+export const electionsBanner = {
+  until: '2026-12-15',
+  label: 'Élections Hlm 2026',
+  text: "Le vote est ouvert jusqu'au 15 décembre ! Votez pour la liste AFOC !",
+  link: {
+    label: 'Voir nos engagements',
+    href: '/logement/elections-hlm-2026-afoc-logement-abordable',
+  },
+};
