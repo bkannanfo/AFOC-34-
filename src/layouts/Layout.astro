@@ -6,7 +6,7 @@ import Footer from '../components/Footer/Footer.astro';
 import siteData from '../data/site.json';
 import '../styles/global.css';
 import '../styles/refonte.css';
-const { title, description, image, noindex, exactTitle = false } = Astro.props;
+const { title, description, image, noindex, exactTitle = false, jsonLdExtra } = Astro.props;
 const suffix = siteData.header.logo;
 const pageTitle = exactTitle ? title : title ? `${title} | ${suffix}` : suffix;
 const pageDescription = description || siteData.seo.defaultDescription;
@@ -71,6 +71,7 @@ const isProd = import.meta.env.PROD;
     <meta name="keywords" content={siteData.seo.keywords} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={pageUrl} />
+    <link rel="alternate" type="application/rss+xml" title="AFOC 34 : actualités" href="/rss.xml" />
     <link
       rel="preload"
       href="/fonts/source-serif-4-latin-500-normal.woff2"
@@ -99,6 +100,7 @@ const isProd = import.meta.env.PROD;
     <meta name="twitter:description" content={pageDescription} />
     <meta name="twitter:image" content={pageImage} />
     <script type="application/ld+json" set:html={JSON.stringify(orgJsonLd)} />
+    {jsonLdExtra && <script type="application/ld+json" set:html={JSON.stringify(jsonLdExtra)} />}
     {
       isProd && (
         <script

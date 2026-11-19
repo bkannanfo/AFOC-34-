@@ -2,9 +2,11 @@
 import Arrow from '../components/UI/Arrow.astro';
 import Layout from './Layout.astro';
 import ContactBand from '../components/Home/ContactBand.astro';
+import RelatedArticles from '../components/Articles/RelatedArticles.astro';
 
-// Props : title, seoTitle?, description, seoDescription?, image?, tag, date, backHref.
-const { title, seoTitle, description, seoDescription, image, tag, date, backHref } = Astro.props;
+// Props : title, seoTitle?, description, seoDescription?, image?, tag, date, backHref, collection, currentId.
+const { title, seoTitle, description, seoDescription, image, tag, date, backHref, collection, currentId } =
+  Astro.props;
 
 // Les images de couverture sont dans src/assets/articles et optimisées par Astro.
 // Le frontmatter ne contient que le nom de fichier (ex. "incendie.jpg").
@@ -17,9 +19,31 @@ const formattedDate = date.toLocaleDateString('fr-FR', {
   month: 'long',
   year: 'numeric',
 });
+
+// Données structurées « Article » (schema.org), en plus de celles de l'association.
+const origin = 'https://afoc34.fr';
+const organisation = { '@type': 'Organization', name: 'AFOC 34', url: origin };
+const articleJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title.slice(0, 110),
+  description: seoDescription ?? description,
+  inLanguage: 'fr',
+  datePublished: date.toISOString(),
+  dateModified: date.toISOString(),
+  mainEntityOfPage: { '@type': 'WebPage', '@id': new URL(Astro.url.pathname.replace(/\.html$/, ''), origin).href },
+  image: [new URL(cover?.src ?? '/img/og-image.jpg', origin).href],
+  author: organisation,
+  publisher: organisation,
+};
 ---
 
-<Layout title={seoTitle ?? title} description={seoDescription ?? description} image={cover?.src}>
+<Layout
+  title={seoTitle ?? title}
+  description={seoDescription ?? description}
+  image={cover?.src}
+  jsonLdExtra={articleJsonLd}
+>
   <article class="article">
     <header class="article-head">
       <div class="site-wrap article-wrap">
@@ -46,6 +70,7 @@ const formattedDate = date.toLocaleDateString('fr-FR', {
           <Arrow dir="left" class="arrow-before" /> Retour aux articles {tag}
         </a>
       </p>
+      <RelatedArticles collection={collection} currentId={currentId} />
     </div>
   </article>
   <ContactBand />

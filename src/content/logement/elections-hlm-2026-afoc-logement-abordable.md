@@ -1,8 +1,8 @@
 ---
 title: "Élections HLM 2026 : l'AFOC agit pour un logement abordable et un quotidien plus serein"
 date: 2026-11-15T10:00:00.000+01:00
-seoTitle: "Élections HLM 2026 : les engagements de l'AFOC pour les locataires"
-seoDescription: "Élections HLM entre le 15 novembre et le 15 décembre 2026 : les engagements de l'AFOC pour des loyers et des charges maîtrisés, la sécurité et des services de proximité."
+seoTitle: "Élections HLM 2026 : les engagements de l'AFOC"
+seoDescription: "Élections HLM du 15 novembre au 15 décembre 2026 : les engagements de l'AFOC sur les loyers, les charges, la sécurité et les services de proximité."
 description: "Les locataires HLM élisent leurs représentants cet hiver. Voici ce que l'AFOC demande aux bailleurs et aux pouvoirs publics pour un logement social plus juste."
 ---
 Les trois pages de la campagne s'affichent ci-dessous. Le texte complet est reproduit plus bas. [Télécharger le PDF (3 pages, 2,2 Mo)](/documents/article-elections.pdf)

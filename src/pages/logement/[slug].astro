@@ -25,6 +25,8 @@ const { Content } = await render(article);
   image={article.data.image}
   tag="Logement"
   date={article.data.date}
+  collection="logement"
+  currentId={article.id}
   backHref="/logement-hlm"
 >
   <Content />

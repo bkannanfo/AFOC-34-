@@ -8,6 +8,12 @@ locale: fr
 media_folder: 'public/img/articles'
 public_folder: '/img/articles'
 
+# Adresses des articles : sans accents ni apostrophes
+slug:
+  encoding: 'ascii'
+  clean_accents: true
+  sanitize_replacement: '-'
+
 commit_message: 'Nouvel article : {{fields.title}} | {{fields.description}}'
 
 collections:
