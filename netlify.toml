@@ -37,3 +37,28 @@
   for = "/success"
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"
+
+# Anciennes adresses avec accents : redirigées vers les adresses sans accent.
+[[redirects]]
+  from = "/logement/élections-hlm-le-vote-est-ouvert-votez-pour-la-liste-afoc"
+  to = "/logement/elections-hlm-le-vote-est-ouvert-votez-pour-la-liste-afoc"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/logement/%C3%A9lections-hlm-le-vote-est-ouvert-votez-pour-la-liste-afoc"
+  to = "/logement/elections-hlm-le-vote-est-ouvert-votez-pour-la-liste-afoc"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/consommation/black-friday-les-conseils-de-lafoc-pour-éviter-les-faux-rabais-ou-arnaques"
+  to = "/consommation/black-friday-conseils-afoc-faux-rabais-et-arnaques"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/consommation/black-friday-les-conseils-de-lafoc-pour-%C3%A9viter-les-faux-rabais-ou-arnaques"
+  to = "/consommation/black-friday-conseils-afoc-faux-rabais-et-arnaques"
+  status = 301
+  force = true
