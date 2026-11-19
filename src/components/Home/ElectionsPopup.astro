@@ -80,14 +80,18 @@ import { electionsPopup as popup } from '../../data/popups.js';
         // Le focus démarre sur le titre : le message est lu avant les boutons.
         dialog.querySelector('#popup-elections-title')?.focus();
       };
-      // Sur grand écran, on attend l'affiche (0,8 s au plus) pour ne pas ouvrir une zone vide.
-      // Sur mobile, l'affiche est masquée et jamais téléchargée.
+      // Sur grand écran, on attend le chargement de l'affiche (1,5 s au plus) pour ne jamais
+      // ouvrir une zone vide. Sur mobile, l'affiche est masquée et jamais téléchargée.
       const poster = dialog.querySelector('img');
       if (poster && window.matchMedia('(min-width: 721px)').matches) {
+        const ready = new Promise((resolve) => {
+          if (poster.complete && poster.naturalWidth > 0) return resolve();
+          poster.addEventListener('load', resolve, { once: true });
+          poster.addEventListener('error', resolve, { once: true });
+          setTimeout(resolve, 1500);
+        });
         poster.loading = 'eager';
-        Promise.race([poster.decode(), new Promise((resolve) => setTimeout(resolve, 800))])
-          .catch(() => {})
-          .then(open);
+        ready.then(open);
       } else {
         open();
       }
