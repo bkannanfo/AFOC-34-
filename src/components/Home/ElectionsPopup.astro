@@ -21,8 +21,8 @@ import { electionsPopup as popup } from '../../data/popups.js';
       <Image
         src={poster}
         alt={popup.imageAlt}
-        width={300}
-        height={426}
+        width={340}
+        height={483}
         densities={[1, 2]}
         format="webp"
         loading="lazy"
@@ -75,12 +75,22 @@ import { electionsPopup as popup } from '../../data/popups.js';
       if (event.target === dialog) dialog.close();
     });
     if (!dismissed && new Date() <= until) {
-      // Sur grand écran, l'affiche est chargée juste avant l'ouverture (jamais sur mobile).
+      const open = () => {
+        dialog.showModal();
+        // Le focus démarre sur le titre : le message est lu avant les boutons.
+        dialog.querySelector('#popup-elections-title')?.focus();
+      };
+      // Sur grand écran, on attend l'affiche (0,8 s au plus) pour ne pas ouvrir une zone vide.
+      // Sur mobile, l'affiche est masquée et jamais téléchargée.
       const poster = dialog.querySelector('img');
-      if (poster && window.matchMedia('(min-width: 721px)').matches) poster.loading = 'eager';
-      dialog.showModal();
-      // Le focus démarre sur le titre : le message est lu avant les boutons.
-      dialog.querySelector('#popup-elections-title')?.focus();
+      if (poster && window.matchMedia('(min-width: 721px)').matches) {
+        poster.loading = 'eager';
+        Promise.race([poster.decode(), new Promise((resolve) => setTimeout(resolve, 800))])
+          .catch(() => {})
+          .then(open);
+      } else {
+        open();
+      }
     }
   }
 </script>
@@ -94,7 +104,7 @@ import { electionsPopup as popup } from '../../data/popups.js';
     border-top: 3px solid var(--color-teal);
     background: var(--color-white);
     color: var(--color-ink);
-    width: min(780px, calc(100% - 40px));
+    width: min(860px, calc(100% - 40px));
     max-height: calc(100% - 40px);
     overflow: auto;
     font-family: var(--font-text);
@@ -105,17 +115,19 @@ import { electionsPopup as popup } from '../../data/popups.js';
   .popup-inner {
     position: relative;
     display: grid;
-    grid-template-columns: 250px minmax(0, 1fr);
+    grid-template-columns: 340px minmax(0, 1fr);
   }
+  /* L'affiche est montrée en entier, sans recadrage : largeur de la colonne, hauteur proportionnelle */
   .popup-visual {
+    display: flex;
+    align-items: center;
     background: var(--color-pale);
     line-height: 0;
   }
   .popup-visual :global(img) {
     display: block;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
   }
   .popup-body {
     padding: 34px 32px 30px;
